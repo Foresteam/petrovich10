@@ -4,10 +4,9 @@
 
 class HealthBar : public Object {
 private:
-    Healthy* hparent;
-    Object* oparent;
+    Healthy* parent;
     static Vector2 IMG_SIZE;
 public:
-	HealthBar(Healthy* hparent, Object* oparent, float scale);
+	HealthBar(Healthy* parent, float scale);
 	bool Update() override;
 };

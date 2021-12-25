@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player(bool isMe) : Object("../assets/player.png", IMG_SIZE), Healthy(100) {
+Player::Player(bool isMe) : Healthy("../assets/player.png", IMG_SIZE, 100) {
 	this->isMe = isMe;
 
 	direction = -1;

@@ -1,8 +1,7 @@
 #include "HealthBar.h"
 
-HealthBar::HealthBar(Healthy* hparent, Object* oparent, float scale) : Object("../assets/healthbar.png") {
-	this->hparent = hparent;
-    this->oparent = oparent;
+HealthBar::HealthBar(Healthy* parent, float scale) : Object("../assets/healthbar.png") {
+	this->parent = parent;
 
     mass = 0;
     kinematic = true;
@@ -11,12 +10,12 @@ HealthBar::HealthBar(Healthy* hparent, Object* oparent, float scale) : Object(".
 }
 
 bool HealthBar::Update() {
-    if (oparent->gonnaBeDeleted)
+    if (parent->gonnaBeDeleted)
         return true;
-	MoveTo(oparent->GetPos() + Vector2(0, -oparent->GetH() / 2 - 20 - GetH() / 2));
+	MoveTo(parent->GetPos() + Vector2(0, -parent->GetH() / 2 - 20 - GetH() / 2));
 	image.setTextureRect(sf::IntRect(
         sf::Vector2i(0, 0),
-        sf::Vector2i(IMG_SIZE.x / hparent->MaxHP() * hparent->HP(), IMG_SIZE.y)
+        sf::Vector2i(IMG_SIZE.x / parent->MaxHP() * parent->HP(), IMG_SIZE.y)
     ));
     return false;
 }

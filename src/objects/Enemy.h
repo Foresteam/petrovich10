@@ -2,7 +2,7 @@
 #include "Object.h"
 #include "../Healthy.h"
 
-class Enemy : public Object, public Healthy {
+class Enemy : public Healthy {
 public:
     Enemy();
     void TakeDamage(float amount) override;

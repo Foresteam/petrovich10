@@ -5,7 +5,7 @@
 #include <time.h>
 #include <list>
 
-class Player : public Object, public Healthy {
+class Player : public Healthy {
 private:
     static Vector2 IMG_SIZE;
     const float K_SPEED = 1e-1 * 6;

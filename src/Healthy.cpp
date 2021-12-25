@@ -1,9 +1,10 @@
 #include "Healthy.h"
 
-Healthy::Healthy(float maxHP) {
+Healthy::Healthy(std::string file, Vector2 imgsz, float maxHP) : Object(file, imgsz) {
 	this->maxHP = maxHP;
 	hp = maxHP;
 }
+Healthy::Healthy(std::string file, float maxHP) : Healthy(file, Vector2(), maxHP) {}
 float Healthy::HP() {
 	return hp;
 }

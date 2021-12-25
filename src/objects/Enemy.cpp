@@ -1,6 +1,6 @@
 #include "Enemy.h"
 
-Enemy::Enemy() : Object("../assets/enemy.png"), Healthy(100) {
+Enemy::Enemy() : Healthy("../assets/enemy.png", 100) {
     mass = 1;
 }
 
