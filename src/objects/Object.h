@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "../global.h"
+#include "../HitboxRect.h"
 #include <string>
 #include <foresteamnd/Vector2>
 using namespace std;
@@ -19,7 +20,7 @@ public:
 	sf::Sprite image;
 	float mass = 0;
 	Vector2 velocity;
-	bool kinematic, background;
+	bool kinematic, background, transparent;
 
 	Object(string filename, Vector2 textureRectSize = Vector2());
 	virtual ~Object();

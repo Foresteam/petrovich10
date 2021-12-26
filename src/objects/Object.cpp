@@ -19,6 +19,7 @@ Object::Object(string filename, Vector2 textureRectSize) {
 
 	background = false;
 	kinematic = false;
+	transparent = false;
 
 	hitbox = HitboxRect(&pos, &size);
 }

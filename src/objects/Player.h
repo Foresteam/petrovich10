@@ -1,6 +1,6 @@
 #pragma once
 #include "Object.h"
-#include "../Healthy.h"
+#include "Healthy.h"
 #include "../global.h"
 #include <time.h>
 #include <list>

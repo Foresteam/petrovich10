@@ -19,12 +19,3 @@ Vector2 f2v(const sf::Vector2f& vec);
 sf::Vector2f v2f(const Vector2& vec);
 Vector2 i2v(const sf::Vector2i& vec);
 sf::Vector2i v2i(const Vector2& vec);
-
-class HitboxRect {
-public:
-	Vector2* pos;
-	Vector2* size;
-	HitboxRect(Vector2* pos, Vector2* size);
-	HitboxRect() : HitboxRect(nullptr, nullptr) {}
-	Vector2 GetPushOutVector(const HitboxRect& other) const;
-};

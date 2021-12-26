@@ -6,6 +6,7 @@ HealthBar::HealthBar(Healthy* parent, float scale) : Object("../assets/healthbar
     mass = 0;
     kinematic = true;
     background = true;
+    transparent = true;
     Scale(scale);
 }
 

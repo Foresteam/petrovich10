@@ -1,6 +1,6 @@
 #pragma once
 #include "Object.h"
-#include "../Healthy.h"
+#include "Healthy.h"
 
 class HealthBar : public Object {
 private:

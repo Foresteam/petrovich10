@@ -6,22 +6,28 @@ enable_testing()
 
 add_executable(LR10
     src/global.h
-    src/Healthy.h
+    src/HitboxRect.h
     src/objects/Object.h
+    src/objects/Healthy.h
     src/objects/Player.h
     src/objects/Sun.h
     src/objects/Wall.h
     src/objects/Enemy.h
     src/objects/HealthBar.h
+    src/gui/GUIElement.h
+    src/gui/Button.h
     src/Dragger.h
     src/global.cpp
-    src/Healthy.cpp
+    src/HitboxRect.cpp
     src/objects/Object.cpp
+    src/objects/Healthy.cpp
     src/objects/Player.cpp
     src/objects/Sun.cpp
     src/objects/Wall.cpp
     src/objects/Enemy.cpp
     src/objects/HealthBar.cpp
+    src/gui/GUIElement.cpp
+    src/gui/Button.cpp
     src/Dragger.cpp
     main.cpp
 )
