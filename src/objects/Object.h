@@ -15,6 +15,7 @@ protected:
 	enum STATE { IDLE = 0, ATTACK };
 	virtual void SetState(STATE state);
 public:
+	bool onGround;
 	HitboxRect hitbox;
 
 	sf::Texture texture;

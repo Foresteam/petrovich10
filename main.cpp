@@ -50,6 +50,7 @@ void Collide(Object* object1, Object* object2) {
 			push[i] = 0, push[j] *= 2;
 			break;
 		}
+		// works damned as ... But it's even worse without this.
 		else if (pair[i]->mass > pair[j]->mass) {
 			float k = pair[j]->mass / pair[i]->mass;
 			push[i] *= 2 * k;
@@ -60,8 +61,11 @@ void Collide(Object* object1, Object* object2) {
 		if (!pair[i]->kinematic) {
 			if (push[i].x != 0)
 				pair[i]->velocity.x = 0;
-			if (push[i].y != 0)
+			if (push[i].y != 0) {
+				if (pair[i]->velocity.y > 0)
+					pair[i]->onGround = true;
 				pair[i]->velocity.y = 0;
+			}
 			pair[i]->Move(push[i]);
 		}
 	return;
@@ -81,6 +85,7 @@ void FitInScreen(Object* object) {
 		object->velocity.y = 0;
 	}
 	if (object->GetPos().y > window_height - object->GetH() / 2) {
+		object->onGround = true;
 		object->MoveTo(Vector2(object->GetPos().x, window_height - object->GetH() / 2));
 		object->velocity.y = 0;
 	}
@@ -105,6 +110,7 @@ void GameCycle(sf::RenderWindow& window, bool &exit) {
 		for (Object* object : objects) {
 			if (object->Update())
 				toDelete.push_back(object);
+			object->onGround = false;
 			Gravitate(object);
 			for (Object* object2 : objects)
 				if (object != object2 && (checkedCollision[object] != object2) && (checkedCollision[object2] != object)) {

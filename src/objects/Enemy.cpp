@@ -1,7 +1,7 @@
 #include "Enemy.h"
 
 Enemy::Enemy() : Healthy(100, "../assets/enemy.png") {
-    mass = 1;
+    mass = .5;
 	InitHealthBar();
 }
 

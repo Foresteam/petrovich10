@@ -4,10 +4,12 @@
 
 class Attacker {
 protected:
-	const float ATTACK_COOLDOWN = .3f;
-	const float AP = 10;
+	float attackAnimTime, attackCooldown, attackPower;
 	clock_t lastSwing = 0;
 
+	Attacker(float attackPower, float attackAnimTime, float attackCooldown);
+
 	virtual void Attack(Object* attacker, int direction, list<Object*>& objects) = 0;
+	bool AttackReady();
 	bool AttackReset();
 };

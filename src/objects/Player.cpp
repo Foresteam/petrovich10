@@ -1,7 +1,7 @@
 #include "Player.h"
 #include "HealthBar.h"
 
-Player::Player(bool isMe) : Healthy(100, "../assets/player.png", IMG_SIZE), MeleeAttacker(100) {
+Player::Player(bool isMe) : Healthy(100, "../assets/player.png", IMG_SIZE), MeleeAttacker(100, 10, .2f, .3f) {
 	this->isMe = isMe;
 
 	direction = -1;
@@ -18,20 +18,20 @@ void Player::SetState(STATE state) {
 void Player::Control(sf::RenderWindow& window, list<Object*>& objects) {
 	int plyMove = (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) - sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A));
 	direction = plyMove ? plyMove : direction;
-	auto scale = this->image.getScale();
+	auto scale = image.getScale();
 	if (plyMove < 0 && scale.x < 0)
-		this->image.setScale(-scale.x, scale.y);
+		image.setScale(-scale.x, scale.y);
 	else if (plyMove > 0 && scale.x > 0)
-		this->image.setScale(-scale.x, scale.y);
-	this->velocity.x = plyMove * deltaTime * KSpeed();
-	this->Move(Vector2(velocity.x, 0));
+		image.setScale(-scale.x, scale.y);
+	velocity.x = plyMove * deltaTime * KSpeed();
+	Move(Vector2(velocity.x, 0));
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && this->velocity.y == 0)
-		this->velocity.y -= JumpPower();
+	if (onGround && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) // velocity.y == 0
+		velocity.y -= JumpPower();
 	
 	if (AttackReset()) {
 		SetState(IDLE);
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E)) {
+		if (AttackReady() && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E)) {
 			Attack(this, direction, objects);
 			SetState(ATTACK);
 		}
@@ -42,7 +42,7 @@ float Player::KSpeed() {
 	return K_SPEED * GetScale().Length();
 }
 float Player::JumpPower() {
-	return JUMP_POWER * GetScale().Length();
+	return JUMP_POWER * GetScale().Length() * mass;
 }
 
 void Player::TakeDamage(float amount) {

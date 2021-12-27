@@ -6,7 +6,10 @@ class HealthBar : public Object {
 private:
     Healthy* parent;
     static Vector2 IMG_SIZE;
+    Object* _background;
 public:
+    ~HealthBar();
 	HealthBar(Healthy* parent, float scale);
 	bool Update() override;
+    void Draw(sf::RenderWindow& window) override;
 };
