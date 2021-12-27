@@ -17,8 +17,8 @@ Nikita::~Nikita() {
     delete attack;
 }
 
-void Nikita::TakeDamage(float amount) {
-    Healthy::TakeDamage(amount);
+void Nikita::TakeDamage(float amount, Object* source) {
+	Healthy::TakeDamage(amount, source);
     if (!Alive())
         aSwordExecuteSound.Play();
     else

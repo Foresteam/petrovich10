@@ -30,6 +30,6 @@ public:
 	float JumpPower();
     float KSpeed();
 
-    void TakeDamage(float amount) override;
+    void TakeDamage(float amount, Object* source) override;
 	bool Update(list<Object*>& objects) override;
 };

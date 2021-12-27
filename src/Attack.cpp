@@ -16,7 +16,7 @@ void Attack::Prepare() {
 	delayWait = clock();
 }
 bool Attack::Prepared() {
-	return !(float(clock() - delayWait) / CLOCKS_PER_SEC < attackDelay);
+	return float(clock() - delayWait) / CLOCKS_PER_SEC >= attackDelay;
 }
 
 bool Attack::Ready() {

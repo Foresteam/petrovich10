@@ -20,5 +20,5 @@ void MeleeAttack::DoAttack(Object* attacker, int direction, list<Object*>& objec
 
 	for (Object* o : objects)
 		if (instanceof <Healthy>(o) && o != attacker && sf::FloatRect(v2f(o->GetPos() - (o->GetSize() / 2)), v2f(o->GetSize())).intersects(zone))
-			((Healthy*)o)->TakeDamage(attackPower);
+			((Healthy*)o)->TakeDamage(attackPower, attacker);
 }

@@ -14,11 +14,13 @@ set(HEADERS
     src/objects/Sun.h
     src/objects/Wall.h
     src/objects/Nikita.h
+    src/objects/Vadid.h
     src/objects/HealthBar.h
     src/gui/GUIElement.h
     src/gui/Button.h
     src/Attack.h
     src/MeleeAttack.h
+    src/SpikeAttack.h
     src/Dragger.h
 )
 set(SOURCES
@@ -31,11 +33,13 @@ set(SOURCES
     src/objects/Sun.cpp
     src/objects/Wall.cpp
     src/objects/Nikita.cpp
+    src/objects/Vadid.cpp
     src/objects/HealthBar.cpp
     src/gui/GUIElement.cpp
     src/gui/Button.cpp
     src/Attack.cpp
     src/MeleeAttack.cpp
+    src/SpikeAttack.cpp
     src/Dragger.cpp
 )
 

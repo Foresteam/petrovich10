@@ -8,5 +8,5 @@ private:
     sf::Sound hitSound;
 public:
     Wall();
-    void TakeDamage(float amount) override;
+    void TakeDamage(float amount, Object* source) override;
 };

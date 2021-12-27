@@ -201,6 +201,7 @@ void MainMenu(sf::RenderWindow& window, bool& exit) {
 
 int main() {
 	srand(time(0));
+	// could this be... multiplayer?
 	// string ip;
 	// printf("Enter host IP (or leave empty to become one): ");
 	// getline(cin, ip);
@@ -242,7 +243,6 @@ int main() {
 
 		me = new Player(true);
 		objects.push_back(me);
-
 
 		GameCycle(window, exit);
 

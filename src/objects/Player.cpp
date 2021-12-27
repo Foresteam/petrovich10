@@ -56,8 +56,8 @@ bool Player::Update(list<Object*>& objects) {
 	return !Alive();
 }
 
-void Player::TakeDamage(float amount) {
-	Healthy::TakeDamage(amount);
+void Player::TakeDamage(float amount, Object* source) {
+	Healthy::TakeDamage(amount, source);
 	if (!Alive())
 		aSwordExecuteSound.Play();
 	else

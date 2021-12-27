@@ -13,7 +13,7 @@ public:
     void SetHP(float val);
     bool Alive();
     /// @returns Is fatal
-	virtual void TakeDamage(float amount);
+	virtual void TakeDamage(float amount, Object* source);
     void Draw(sf::RenderWindow& window) override;
     void InitHealthBar();
 	bool Update(list<Object*>& objects) override;

@@ -10,9 +10,9 @@ Wall::Wall() : Healthy(100, "../assets/textures/wall.png") {
     hitSound.setBuffer(hitBuffer);
 }
 
-void Wall::TakeDamage(float amount) {
-    Healthy::TakeDamage(amount);
-    if (Alive())
+void Wall::TakeDamage(float amount, Object* source) {
+	Healthy::TakeDamage(amount, source);
+	if (Alive())
         hitSound.play();
     else
         wallBreakSound.play();

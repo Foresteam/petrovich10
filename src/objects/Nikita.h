@@ -13,7 +13,7 @@ private:
 public:
     Nikita();
     ~Nikita();
-    void TakeDamage(float amount) override;
+    void TakeDamage(float amount, Object* source) override;
 	bool Update(list<Object*>& objects) override;
     void SetState(STATE state);
 };
