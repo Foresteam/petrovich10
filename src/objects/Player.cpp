@@ -52,8 +52,8 @@ bool Player::Update() {
 	return !Alive();
 }
 
-bool Player::TakeDamage(float amount) {
-	return Healthy::TakeDamage(amount);
+void Player::TakeDamage(float amount) {
+	Healthy::TakeDamage(amount);
 }
 
 Vector2 Player::IMG_SIZE = Vector2(180, 199);

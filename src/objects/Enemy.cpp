@@ -6,13 +6,12 @@ Enemy::Enemy() : Healthy(100, "../assets/textures/enemy.png") {
 	InitHealthBar();
 }
 
-bool Enemy::TakeDamage(float amount) {
-    bool rs = Healthy::TakeDamage(amount);
-    if (rs)
+void Enemy::TakeDamage(float amount) {
+    Healthy::TakeDamage(amount);
+    if (!Alive())
         aSwordExecuteSound.Play();
     else
         aSwordSliceSound.Play();
-    return rs;
 }
 
 bool Enemy::Update() {

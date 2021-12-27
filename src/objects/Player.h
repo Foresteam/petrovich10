@@ -26,6 +26,6 @@ public:
 	float JumpPower();
     float KSpeed();
 
-    bool TakeDamage(float amount) override;
+    void TakeDamage(float amount) override;
     bool Update() override;
 };
