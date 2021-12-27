@@ -18,3 +18,6 @@ sf::Vector2i v2i(const Vector2& vec) {
 RandomSound aSwordSwingSound = RandomSound("../assets/sounds/swing", ".ogg", 5);
 RandomSound aSwordSliceSound = RandomSound("../assets/sounds/slice", ".ogg", 6);
 RandomSound aSwordExecuteSound = RandomSound("../assets/sounds/sword_execute", ".ogg", 9);
+
+sf::SoundBuffer wallBreakBuffer;
+sf::Sound wallBreakSound;

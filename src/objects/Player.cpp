@@ -2,14 +2,18 @@
 #include "HealthBar.h"
 #include "../global.h"
 
-Player::Player(bool isMe) : Healthy(100, "../assets/textures/player.png", IMG_SIZE), MeleeAttacker(100, 0, 10, .2f, .3f) {
+Player::Player(bool isMe) : Healthy(100, "../assets/textures/player.png", IMG_SIZE) {
 	this->isMe = isMe;
 
+	attack = new MeleeAttack(100, 0, 10, .2f, .3f);
 	direction = -1;
 	mass = 1;
 	Scale(Vector2(.7f));
 	SetState(STATE::IDLE);
 	InitHealthBar();
+}
+Player::~Player() {
+	delete attack;
 }
 
 void Player::SetState(STATE state) {
@@ -30,10 +34,10 @@ void Player::Control(sf::RenderWindow& window, list<Object*>& objects) {
 	if (onGround && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) // velocity.y == 0
 		velocity.y -= JumpPower();
 	
-	if (AttackReset()) {
+	if (attack->Reset()) {
 		SetState(IDLE);
-		if (AttackReady() && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E)) {
-			Attack(this, direction, objects);
+		if (attack->Ready() && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E)) {
+			attack->DoAttack(this, direction, objects);
 			SetState(ATTACK);
 			aSwordSwingSound.Play();
 		}

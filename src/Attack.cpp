@@ -1,25 +1,25 @@
-#include "Attacker.h"
+#include "Attack.h"
 
-Attacker::Attacker(float attackPower, float attackAnimTime, float attackCooldown, float attackDelay) {
+Attack::Attack(float attackPower, float attackAnimTime, float attackCooldown, float attackDelay) {
 	this->attackPower = attackPower;
 	this->attackAnimTime = attackAnimTime;
 	this->attackCooldown = attackCooldown;
 	this->attackDelay = attackDelay;
 }
 
-bool Attacker::AttackReset() {
+bool Attack::Reset() {
 	if (float(clock() - lastSwing) / CLOCKS_PER_SEC < attackAnimTime)
 		return false;
 	return true;
 }
-void Attacker::AttackPrepare() {
+void Attack::Prepare() {
 	delayWait = clock();
 }
-bool Attacker::AttackPrepared() {
+bool Attack::Prepared() {
 	return !(float(clock() - delayWait) / CLOCKS_PER_SEC < attackDelay);
 }
 
-bool Attacker::AttackReady() {
+bool Attack::Ready() {
 	if (lastSwing == 0)
 		return true;
 	if (float(clock() - lastSwing) / CLOCKS_PER_SEC < attackAnimTime + attackCooldown)

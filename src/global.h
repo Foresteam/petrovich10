@@ -10,6 +10,8 @@ const int window_width = 1280, window_height = 720;
 
 extern float deltaTime;
 extern RandomSound aSwordSwingSound, aSwordSliceSound, aSwordExecuteSound;
+extern sf::SoundBuffer wallBreakBuffer;
+extern sf::Sound wallBreakSound;
 
 // struct Shared {
 // 	Player* me;

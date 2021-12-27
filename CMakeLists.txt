@@ -13,12 +13,12 @@ set(HEADERS
     src/objects/Player.h
     src/objects/Sun.h
     src/objects/Wall.h
-    src/objects/Enemy.h
+    src/objects/Nikita.h
     src/objects/HealthBar.h
     src/gui/GUIElement.h
     src/gui/Button.h
-    src/Attacker.h
-    src/MeleeAttacker.h
+    src/Attack.h
+    src/MeleeAttack.h
     src/Dragger.h
 )
 set(SOURCES
@@ -30,12 +30,12 @@ set(SOURCES
     src/objects/Player.cpp
     src/objects/Sun.cpp
     src/objects/Wall.cpp
-    src/objects/Enemy.cpp
+    src/objects/Nikita.cpp
     src/objects/HealthBar.cpp
     src/gui/GUIElement.cpp
     src/gui/Button.cpp
-    src/Attacker.cpp
-    src/MeleeAttacker.cpp
+    src/Attack.cpp
+    src/MeleeAttack.cpp
     src/Dragger.cpp
 )
 

@@ -12,6 +12,8 @@ Wall::Wall() : Healthy(100, "../assets/textures/wall.png") {
 
 void Wall::TakeDamage(float amount) {
     Healthy::TakeDamage(amount);
-    if (amount > 0)
+    if (Alive())
         hitSound.play();
+    else
+        wallBreakSound.play();
 }

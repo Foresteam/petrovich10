@@ -6,7 +6,7 @@
 #include "src/objects/Sun.h"
 #include "src/objects/Wall.h"
 #include "src/objects/HealthBar.h"
-#include "src/objects/Enemy.h"
+#include "src/objects/Nikita.h"
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Rect.hpp>
@@ -69,7 +69,6 @@ void Collide(Object* object1, Object* object2) {
 			}
 			pair[i]->Move(push[i]);
 		}
-	return;
 }
 
 void FitInScreen(Object* object) {
@@ -100,9 +99,10 @@ void GameCycle(sf::RenderWindow& window, bool &exit) {
 	map<Object*, Object*> checkedCollision;
 	list<Object*> toDelete;
 	while (window.isOpen()) {
-		// call update every tick
 		sf::Event event;
 
+		if (!me)
+			break;
 		me->Control(window, objects);
 		dragger.DoDrag(window);
 
@@ -111,7 +111,10 @@ void GameCycle(sf::RenderWindow& window, bool &exit) {
 		for (Object* object : objects) {
 			if (object->Update(objects))
 				toDelete.push_back(object);
-			object->onGround = false;
+			object->onGround = false; // <= the reason
+		}
+		// two cycles go through the same array. Nice.
+		for (Object* object : objects) {
 			Gravitate(object);
 			for (Object* object2 : objects)
 				if (object != object2 && (checkedCollision[object] != object2) && (checkedCollision[object2] != object)) {
@@ -155,6 +158,8 @@ void GameCycle(sf::RenderWindow& window, bool &exit) {
 		lastUpdate = clock();
 
 		for (Object* o : toDelete) {
+			if (o == me)
+				me = nullptr;
 			delete o;
 			objects.remove(o);
 		}
@@ -200,6 +205,9 @@ int main() {
 	// printf("Enter host IP (or leave empty to become one): ");
 	// getline(cin, ip);
 
+	wallBreakBuffer.loadFromFile("../assets/sounds/wall_break.ogg");
+	wallBreakSound.setBuffer(wallBreakBuffer);
+
 	mainMenu.push_back(new GUIElement(Vector2(window_width / 2, window_height / 2), "../assets/textures/mainmenu.jpg"));
 	mainMenu.push_back(new Button(Vector2(window_width / 2, 200), "../assets/textures/playbutton.png"));
 	mainMenu.push_back(new Button(Vector2(window_width / 2, 500), "../assets/textures/exitbutton.png"));
@@ -224,12 +232,12 @@ int main() {
 		sun->MoveTo(Vector2(window_width / 2, sun->GetH() / 2));
 		objects.push_back(sun);
 
-		Enemy* enemy = new Enemy();
-		enemy->MoveTo(window_width - enemy->GetW() / 2);
-		objects.push_back(enemy);
+		Nikita* nikita = new Nikita();
+		nikita->MoveTo(window_width - nikita->GetW() / 2);
+		objects.push_back(nikita);
 
 		Wall* wall = new Wall();
-		wall->MoveTo(Vector2(window_width - wall->GetW() / 2 - enemy->GetW(), 0));
+		wall->MoveTo(Vector2(window_width - wall->GetW() / 2 - nikita->GetW(), 0));
 		objects.push_back(wall);
 
 		me = new Player(true);
