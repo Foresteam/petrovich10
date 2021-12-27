@@ -2,7 +2,7 @@
 #include "HealthBar.h"
 #include "../global.h"
 
-Player::Player(bool isMe) : Healthy(100, "../assets/textures/player.png", IMG_SIZE), MeleeAttacker(100, 10, .2f, .3f) {
+Player::Player(bool isMe) : Healthy(100, "../assets/textures/player.png", IMG_SIZE), MeleeAttacker(100, 0, 10, .2f, .3f) {
 	this->isMe = isMe;
 
 	direction = -1;
@@ -54,6 +54,10 @@ bool Player::Update(list<Object*>& objects) {
 
 void Player::TakeDamage(float amount) {
 	Healthy::TakeDamage(amount);
+	if (!Alive())
+		aSwordExecuteSound.Play();
+	else
+		aSwordSliceSound.Play();
 }
 
 Vector2 Player::IMG_SIZE = Vector2(180, 199);

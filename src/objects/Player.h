@@ -8,12 +8,14 @@
 
 class Player : public Healthy, private MeleeAttacker {
 private:
+    enum STATE { IDLE = 0, ATTACK };
+
     static Vector2 IMG_SIZE;
     const float K_SPEED = 1e-1 * 6;
     const float JUMP_POWER = .16;
 
     int direction;
-    void SetState(STATE state) override;
+    void SetState(STATE state);
 public:
 	/// Is local player
 	bool isMe;

@@ -12,9 +12,6 @@ private:
 	Vector2 scale;
 	Vector2 pos;
 	Vector2 size;
-protected:
-	enum STATE { IDLE = 0, ATTACK };
-	virtual void SetState(STATE state);
 public:
 	bool onGround;
 	HitboxRect hitbox;
@@ -23,7 +20,7 @@ public:
 	sf::Sprite image;
 	float mass = 0;
 	Vector2 velocity;
-	bool kinematic, background, transparent;
+	bool kinematic, background, transparent, enabled;
 
 	Object(string filename, Vector2 textureRectSize = Vector2());
 	virtual ~Object();

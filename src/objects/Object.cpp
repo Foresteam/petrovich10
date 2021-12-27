@@ -18,6 +18,7 @@ Object::Object(string filename, Vector2 textureRectSize) {
 	background = false;
 	kinematic = false;
 	transparent = false;
+	enabled = true;
 
 	onGround = false;
 	hitbox = HitboxRect(&pos, &size);
@@ -61,9 +62,10 @@ bool Object::Update(list<Object*>& objects) {
 	return false;
 }
 void Object::Draw(sf::RenderWindow& window) {
+	if (!enabled)
+		return;
 	window.draw(image);
 }
-void Object::SetState(STATE state) {}
 
 // void Object::Control() {
 // }

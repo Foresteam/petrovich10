@@ -1,6 +1,6 @@
 #include "Wall.h"
 
-Wall::Wall() : Healthy(500, "../assets/textures/wall.png") {
+Wall::Wall() : Healthy(100, "../assets/textures/wall.png") {
     mass = 500;
     // kinematic = true;
     Scale(Vector2(.6f));

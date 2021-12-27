@@ -39,7 +39,7 @@ void Gravitate(Object* object) {
 void Collide(Object* object1, Object* object2) {
 	Object* pair[] = { object1, object2 };
 
-	if ((int)pair[0]->background + (int)pair[1]->background == 1 || pair[1]->kinematic && pair[0]->kinematic || pair[0]->transparent || pair[1]->transparent)
+	if ((int)pair[0]->background + (int)pair[1]->background == 1 || pair[1]->kinematic && pair[0]->kinematic || pair[0]->transparent || pair[1]->transparent || !pair[0]->enabled || !pair[1]->enabled)
 		return;
 	Vector2 pushVec = pair[0]->hitbox.GetPushOutVector(pair[1]->hitbox);
 	if (pushVec.Length() == 0)
@@ -224,15 +224,17 @@ int main() {
 		sun->MoveTo(Vector2(window_width / 2, sun->GetH() / 2));
 		objects.push_back(sun);
 
+		Enemy* enemy = new Enemy();
+		enemy->MoveTo(window_width - enemy->GetW() / 2);
+		objects.push_back(enemy);
+
 		Wall* wall = new Wall();
-		wall->MoveTo(Vector2(window_width - wall->GetW(), 0));
+		wall->MoveTo(Vector2(window_width - wall->GetW() / 2 - enemy->GetW(), 0));
 		objects.push_back(wall);
 
 		me = new Player(true);
 		objects.push_back(me);
 
-		Enemy* enemy = new Enemy();
-		objects.push_back(enemy);
 
 		GameCycle(window, exit);
 
