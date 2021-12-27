@@ -109,7 +109,7 @@ void GameCycle(sf::RenderWindow& window, bool &exit) {
 		checkedCollision.clear();
 		toDelete.clear();
 		for (Object* object : objects) {
-			if (object->Update())
+			if (object->Update(objects))
 				toDelete.push_back(object);
 			object->onGround = false;
 			Gravitate(object);

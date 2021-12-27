@@ -10,6 +10,6 @@ private:
 public:
     ~HealthBar();
 	HealthBar(Healthy* parent, float scale);
-	bool Update() override;
+	bool Update(list<Object*>& objects) override;
     void Draw(sf::RenderWindow& window) override;
 };

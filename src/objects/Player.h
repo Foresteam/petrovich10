@@ -27,5 +27,5 @@ public:
     float KSpeed();
 
     void TakeDamage(float amount) override;
-    bool Update() override;
+	bool Update(list<Object*>& objects) override;
 };

@@ -32,9 +32,9 @@ void Healthy::Draw(sf::RenderWindow& window) {
 void Healthy::InitHealthBar() {
 	healthBar = new HealthBar(this, (abs(this->GetScale().x) + abs(this->GetScale().y)) / 2);
 }
-bool Healthy::Update() {
+bool Healthy::Update(list<Object*>& objects) {
 	if (healthBar)
-		healthBar->Update();
+		healthBar->Update(objects);
 	return false;
 }
 void Healthy::TakeDamage(float amount) {

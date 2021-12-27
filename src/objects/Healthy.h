@@ -16,5 +16,5 @@ public:
 	virtual void TakeDamage(float amount);
     void Draw(sf::RenderWindow& window) override;
     void InitHealthBar();
-    bool Update() override;
+	bool Update(list<Object*>& objects) override;
 };

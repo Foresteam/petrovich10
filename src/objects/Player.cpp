@@ -47,8 +47,8 @@ float Player::JumpPower() {
 	return JUMP_POWER * GetScale().Length() * mass;
 }
 
-bool Player::Update() {
-	Healthy::Update();
+bool Player::Update(list<Object*>& objects) {
+	Healthy::Update(objects);
 	return !Alive();
 }
 

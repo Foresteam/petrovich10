@@ -3,6 +3,7 @@
 #include "../global.h"
 #include "../HitboxRect.h"
 #include <string>
+#include <list>
 #include <foresteamnd/Vector2>
 using namespace std;
 
@@ -38,6 +39,6 @@ public:
 	Vector2 GetSize();
 
 	/// @returns true if the object is to be deleted
-	virtual bool Update();
+	virtual bool Update(list<Object*>& objects);
 	virtual void Draw(sf::RenderWindow& window);
 };

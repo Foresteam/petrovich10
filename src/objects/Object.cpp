@@ -57,7 +57,7 @@ Vector2 Object::GetSize() {
 	return size;
 }
 
-bool Object::Update() {
+bool Object::Update(list<Object*>& objects) {
 	return false;
 }
 void Object::Draw(sf::RenderWindow& window) {

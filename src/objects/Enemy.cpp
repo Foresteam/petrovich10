@@ -14,7 +14,8 @@ void Enemy::TakeDamage(float amount) {
         aSwordSliceSound.Play();
 }
 
-bool Enemy::Update() {
-    Healthy::Update();
+bool Enemy::Update(list<Object*>& objects) {
+
+	Healthy::Update(objects);
     return !Alive();
 }

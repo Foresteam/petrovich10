@@ -20,7 +20,7 @@ HealthBar::HealthBar(Healthy* parent, float scale) : Object("../assets/textures/
     Scale(scale);
 }
 
-bool HealthBar::Update() {
+bool HealthBar::Update(list<Object*>& objects) {
 	MoveTo(parent->GetPos() + Vector2(0, -parent->GetH() / 2 - 20 - GetH() / 2));
 	_background->MoveTo(GetPos());
 	image.setTextureRect(sf::IntRect(
