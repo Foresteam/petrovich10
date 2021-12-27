@@ -1,7 +1,8 @@
 #include "Player.h"
 #include "HealthBar.h"
+#include "../global.h"
 
-Player::Player(bool isMe) : Healthy(100, "../assets/player.png", IMG_SIZE), MeleeAttacker(100, 10, .2f, .3f) {
+Player::Player(bool isMe) : Healthy(100, "../assets/textures/player.png", IMG_SIZE), MeleeAttacker(100, 10, .2f, .3f) {
 	this->isMe = isMe;
 
 	direction = -1;
@@ -34,6 +35,7 @@ void Player::Control(sf::RenderWindow& window, list<Object*>& objects) {
 		if (AttackReady() && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E)) {
 			Attack(this, direction, objects);
 			SetState(ATTACK);
+			aSwordSwingSound.Play();
 		}
 	}
 }
@@ -45,12 +47,13 @@ float Player::JumpPower() {
 	return JUMP_POWER * GetScale().Length() * mass;
 }
 
-void Player::TakeDamage(float amount) {
-	SetHP(HP() - amount);
-}
 bool Player::Update() {
 	Healthy::Update();
 	return !Alive();
+}
+
+bool Player::TakeDamage(float amount) {
+	return Healthy::TakeDamage(amount);
 }
 
 Vector2 Player::IMG_SIZE = Vector2(180, 199);

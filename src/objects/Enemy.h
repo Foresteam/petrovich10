@@ -5,6 +5,6 @@
 class Enemy : public Healthy {
 public:
     Enemy();
-    void TakeDamage(float amount) override;
+    bool TakeDamage(float amount) override;
     bool Update() override;
 };

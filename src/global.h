@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <foresteamnd/Vector2>
+#include "RandomSound.h"
 
 const float G = 9.8, G_SCALE = 1.e-4;
 const int FPS = 60;
@@ -8,6 +9,7 @@ const int FPS = 60;
 const int window_width = 1280, window_height = 720;
 
 extern float deltaTime;
+extern RandomSound aSwordSwingSound, aSwordSliceSound, aSwordExecuteSound;
 
 // struct Shared {
 // 	Player* me;

@@ -37,3 +37,7 @@ bool Healthy::Update() {
 		healthBar->Update();
 	return false;
 }
+bool Healthy::TakeDamage(float amount) {
+	SetHP(HP() - amount);
+	return !Alive();
+}

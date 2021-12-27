@@ -2,6 +2,7 @@
 #include "Healthy.h"
 #include "../MeleeAttacker.h"
 #include "../global.h"
+#include "../RandomSound.h"
 #include <time.h>
 #include <list>
 
@@ -25,6 +26,6 @@ public:
 	float JumpPower();
     float KSpeed();
 
-    void TakeDamage(float amount) override;
+    bool TakeDamage(float amount) override;
     bool Update() override;
 };

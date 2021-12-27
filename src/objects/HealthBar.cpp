@@ -3,10 +3,10 @@
 HealthBar::~HealthBar() {
     delete _background;
 }
-HealthBar::HealthBar(Healthy* parent, float scale) : Object("../assets/healthbar.png") {
+HealthBar::HealthBar(Healthy* parent, float scale) : Object("../assets/textures/healthbar.png") {
 	this->parent = parent;
 
-    _background = new Object("../assets/healthbar_background.png");
+    _background = new Object("../assets/textures/healthbar_background.png");
     _background->mass = 0;
     _background->background = true;
     _background->transparent = true;

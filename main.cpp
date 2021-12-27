@@ -17,6 +17,7 @@
 #include <time.h>
 #include <unistd.h>
 #include <map>
+#include <random>
 
 using namespace std;
 
@@ -194,13 +195,14 @@ void MainMenu(sf::RenderWindow& window, bool& exit) {
 }
 
 int main() {
+	srand(time(0));
 	// string ip;
 	// printf("Enter host IP (or leave empty to become one): ");
 	// getline(cin, ip);
 
-	mainMenu.push_back(new GUIElement(Vector2(window_width / 2, window_height / 2), "../assets/mainmenu.jpg"));
-	mainMenu.push_back(new Button(Vector2(window_width / 2, 200), "../assets/playbutton.png"));
-	mainMenu.push_back(new Button(Vector2(window_width / 2, 500), "../assets/exitbutton.png"));
+	mainMenu.push_back(new GUIElement(Vector2(window_width / 2, window_height / 2), "../assets/textures/mainmenu.jpg"));
+	mainMenu.push_back(new Button(Vector2(window_width / 2, 200), "../assets/textures/playbutton.png"));
+	mainMenu.push_back(new Button(Vector2(window_width / 2, 500), "../assets/textures/exitbutton.png"));
 
 	sf::RenderWindow window(sf::VideoMode(window_width, window_height), "Ah sh, here we go again");
 	// add sun to the list of objects
@@ -211,7 +213,7 @@ int main() {
 		MainMenu(window, exit);
 		if (exit)
 			return 0;
-		Object* background = new Object("../assets/game_background.jpg");
+		Object* background = new Object("../assets/textures/game_background.jpg");
 		background->background = true;
 		background->kinematic = true;
 		background->transparent = true;

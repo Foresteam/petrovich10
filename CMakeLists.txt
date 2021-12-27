@@ -4,7 +4,8 @@ project(LR10 VERSION 0.1.0)
 include(CTest)
 enable_testing()
 
-add_executable(LR10
+set(HEADERS
+    src/RandomSound.h
     src/global.h
     src/HitboxRect.h
     src/objects/Object.h
@@ -19,6 +20,9 @@ add_executable(LR10
     src/Attacker.h
     src/MeleeAttacker.h
     src/Dragger.h
+)
+set(SOURCES
+    src/RandomSound.cpp
     src/global.cpp
     src/HitboxRect.cpp
     src/objects/Object.cpp
@@ -33,6 +37,11 @@ add_executable(LR10
     src/Attacker.cpp
     src/MeleeAttacker.cpp
     src/Dragger.cpp
+)
+
+add_executable(LR10
+    ${HEADERS}
+    ${SOURCES}
     main.cpp
 )
 
@@ -41,6 +50,7 @@ target_link_libraries(LR10
     pthread
     sfml-graphics
     sfml-window
+    sfml-audio
     sfml-system
 )
 
