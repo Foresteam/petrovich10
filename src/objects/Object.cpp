@@ -1,8 +1,6 @@
 #include "Object.h"
 
 Object::Object(string filename, Vector2 textureRectSize) {
-	gonnaBeDeleted = false;
-	
 	texture.loadFromFile(filename);
 	image.setTexture(texture);
 
@@ -57,6 +55,14 @@ Vector2 Object::GetScale() {
 Vector2 Object::GetSize() {
 	return size;
 }
+
+bool Object::Update() {
+	return false;
+}
+void Object::Draw(sf::RenderWindow& window) {
+	window.draw(image);
+}
+void Object::SetState(STATE state) {}
 
 // void Object::Control() {
 // }

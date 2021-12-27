@@ -2,6 +2,7 @@
 
 Enemy::Enemy() : Healthy(100, "../assets/enemy.png") {
     mass = 1;
+	InitHealthBar();
 }
 
 void Enemy::TakeDamage(float amount) {
@@ -9,5 +10,6 @@ void Enemy::TakeDamage(float amount) {
 }
 
 bool Enemy::Update() {
-    return !Alive() && (gonnaBeDeleted = true);
+    Healthy::Update();
+    return !Alive();
 }

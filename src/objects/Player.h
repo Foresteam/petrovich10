@@ -1,26 +1,18 @@
 #pragma once
-#include "Object.h"
 #include "Healthy.h"
+#include "../MeleeAttacker.h"
 #include "../global.h"
 #include <time.h>
 #include <list>
 
-class Player : public Healthy {
+class Player : public Healthy, private MeleeAttacker {
 private:
     static Vector2 IMG_SIZE;
     const float K_SPEED = 1e-1 * 6;
     const float JUMP_POWER = .16;
-    const float ATTACK_COOLDOWN = .3f;
-    const float AP = 10;
-    enum STATE { IDLE = 0, ATTACK };
-
-    void SetState(STATE state);
 
     int direction;
-
-    clock_t lastSwing = 0;
-    void Attack(list<Object*>& objects);
-    bool AttackReset();
+    void SetState(STATE state) override;
 public:
 	/// Is local player
 	bool isMe;

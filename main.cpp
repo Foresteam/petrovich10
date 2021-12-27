@@ -136,7 +136,7 @@ void GameCycle(sf::RenderWindow& window, bool &exit) {
 		if (renderWait > 1.f / FPS) {
 			window.clear();
 			for (Object* o : objects)
-				window.draw(o->image);
+				o->Draw(window);
 			// display everything
 			window.display();
 
@@ -182,7 +182,7 @@ void MainMenu(sf::RenderWindow& window, bool& exit) {
 		}
 		window.clear();
 		for (GUIElement* ge : mainMenu)
-			window.draw(ge->image);
+			ge->Draw(window);
 		window.display();
 	}
 }
@@ -222,13 +222,9 @@ int main() {
 
 		me = new Player(true);
 		objects.push_back(me);
-		HealthBar* hb = new HealthBar(me, 1);
-		objects.push_back(hb);
 
 		Enemy* enemy = new Enemy();
 		objects.push_back(enemy);
-		HealthBar* ehb = new HealthBar(enemy, 1);
-		objects.push_back(ehb);
 
 		GameCycle(window, exit);
 

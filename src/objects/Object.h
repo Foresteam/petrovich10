@@ -11,9 +11,10 @@ private:
 	Vector2 scale;
 	Vector2 pos;
 	Vector2 size;
+protected:
+	enum STATE { IDLE = 0, ATTACK };
+	virtual void SetState(STATE state);
 public:
-	bool gonnaBeDeleted;
-	
 	HitboxRect hitbox;
 
 	sf::Texture texture;
@@ -36,6 +37,6 @@ public:
 	Vector2 GetSize();
 
 	/// @returns true if the object is to be deleted
-	virtual bool Update() { return false; }
-	virtual void TakeDamage(float amount) {}
+	virtual bool Update();
+	virtual void Draw(sf::RenderWindow& window);
 };

@@ -11,8 +11,6 @@ HealthBar::HealthBar(Healthy* parent, float scale) : Object("../assets/healthbar
 }
 
 bool HealthBar::Update() {
-    if (parent->gonnaBeDeleted)
-        return true;
 	MoveTo(parent->GetPos() + Vector2(0, -parent->GetH() / 2 - 20 - GetH() / 2));
 	image.setTextureRect(sf::IntRect(
         sf::Vector2i(0, 0),

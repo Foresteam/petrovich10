@@ -16,6 +16,8 @@ add_executable(LR10
     src/objects/HealthBar.h
     src/gui/GUIElement.h
     src/gui/Button.h
+    src/Attacker.h
+    src/MeleeAttacker.h
     src/Dragger.h
     src/global.cpp
     src/HitboxRect.cpp
@@ -28,6 +30,8 @@ add_executable(LR10
     src/objects/HealthBar.cpp
     src/gui/GUIElement.cpp
     src/gui/Button.cpp
+    src/Attacker.cpp
+    src/MeleeAttacker.cpp
     src/Dragger.cpp
     main.cpp
 )

@@ -19,3 +19,8 @@ Vector2 f2v(const sf::Vector2f& vec);
 sf::Vector2f v2f(const Vector2& vec);
 Vector2 i2v(const sf::Vector2i& vec);
 sf::Vector2i v2i(const Vector2& vec);
+
+template <typename Base, typename T>
+inline bool instanceof (const T* ptr) {
+	return dynamic_cast<const Base*>(ptr) != nullptr;
+}
