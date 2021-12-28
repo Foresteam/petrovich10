@@ -3,7 +3,7 @@
 #include "Overlay.h"
 #include <foresteamnd/Utils.h>
 
-Vadid::Vadid(float kDamage) : Healthy(1, "../assets/textures/boss.png", RECT_SIZE) {
+Vadid::Vadid(float kDamage) : Healthy(150, "../assets/textures/boss.png", RECT_SIZE) {
     this->kDamage = kDamage;
     this->mass = 1;
 	direction = 1;
