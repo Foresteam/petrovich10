@@ -6,7 +6,7 @@
 class Vadid : public Healthy {
 private:
 	static Vector2 RECT_SIZE;
-	enum STATE { IDLE = 0, ATTACK = 3, JUMP_ATTACK };
+	enum STATE { IDLE = 0, JUMP_PREPARE = 2, ATTACK = 3, JUMP_ATTACK };
 
     struct Choise {
         Attack* attack;
@@ -27,14 +27,18 @@ private:
     float kDamage;
 	MeleeAttack* touchAttack;
     SpikeAttack* spikeAttack;
+	Attack* jumpAttack;
 
-    const float choiseInterval = 5;
+    const float choiseInterval = 2;
     float choiseTimer;
     Choise lastChoice;
     bool attacked;
 
     Object* wave;
 	Object* title;
+
+	sf::SoundBuffer rasenganBuffer;
+	sf::Sound rasenganSound;
 public:
 	Vadid(float kDamage);
 	~Vadid();

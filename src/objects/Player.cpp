@@ -5,12 +5,13 @@
 Player::Player(bool isMe) : Healthy(100, "../assets/textures/player.png", RECT_SIZE) {
 	this->isMe = isMe;
 
-	attack = new MeleeAttack(100, 0, 10, .2f, .3f);
 	direction = -1;
 	mass = 1;
 	Scale(Vector2(.7f));
 	SetState(STATE::IDLE);
 	InitHealthBar();
+
+	attack = new MeleeAttack(GetW() / 2 + 70, 0, 10, .2f, .3f);
 }
 Player::~Player() {
 	delete attack;

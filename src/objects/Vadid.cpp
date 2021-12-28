@@ -8,14 +8,18 @@ Vadid::Vadid(float kDamage) : Healthy(150, "../assets/textures/boss.png", RECT_S
     this->mass = 1;
 	direction = 1;
     Scale(Vector2(.3f));
-    touchAttack = new MeleeAttack(GetW() * 1.05f, GetH() * .05f, 50, 0, 0.5f, 0);
-    spikeAttack = new SpikeAttack(100, 50, .4f, 0, .7f);
+    touchAttack = new MeleeAttack(GetW(), 0, 50, 0, 0.5f, 0);
+    spikeAttack = new SpikeAttack(100, 100, .4f, 0, .7f);
+    jumpAttack = new Attack(0, 0, 0, .5);
     lastChoice = Choise();
     choiseTimer = clock();
     attacked = false;
 
     wave = nullptr;
     title = new Overlay(Vector2(window_width / 2, window_height / 2), "../assets/textures/boss_title.png");
+
+    rasenganBuffer.loadFromFile("../assets/sounds/rassengan.ogg");
+    rasenganSound.setBuffer(rasenganBuffer);
 
 	InitHealthBar();
 	SetState(IDLE);
@@ -51,6 +55,7 @@ bool Vadid::Update(list<Object*>& objects) {
 		else
 			SetState(JUMP_ATTACK);
 
+    Rotate(direction, false);
 	if (ply) {
 		direction = (ply->GetPos().x > GetPos().x) * 2 - 1;
         if (touchAttack->Ready() && touchAttack->GetZone(this, 0).intersects(ply->image.getGlobalBounds())) {
@@ -62,8 +67,8 @@ bool Vadid::Update(list<Object*>& objects) {
                 title = nullptr;
             }
             if (!lastChoice.attack) {
-                Choise t[] = { Choise(spikeAttack, ATTACK, ATTACK) };
-                lastChoice = t[(int)Utils::RandRange(0, 1)];
+                Choise t[] = { Choise(spikeAttack, ATTACK, ATTACK), Choise(jumpAttack, JUMP_ATTACK, JUMP_PREPARE) };
+                lastChoice = t[(int)Utils::RandRange(0, 2)];
                 lastChoice.attack->Prepare();
                 SetState(lastChoice.stateCharge);
                 if (instanceof<SpikeAttack>(lastChoice.attack)) {
@@ -90,6 +95,14 @@ bool Vadid::Update(list<Object*>& objects) {
                     attacked = true;
                     if (wave)
                         wave->enabled = true;
+                    if (instanceof<SpikeAttack>(lastChoice.attack))
+                        rasenganSound.play();
+                    else {
+						velocity += Vector2(
+							((ply->GetPos().x < GetPos().x) * 2 - 1) * -0.5 * ply->GetPos().Distance(GetPos()) / 100,
+							-.2f * mass * GetScale().Length() + (1 - (GetPos().y / ply->GetPos().y)) / 4
+                        );
+					}
                 }
         }
 	}

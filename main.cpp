@@ -1,5 +1,6 @@
 #include "src/Dragger.h"
 #include "src/objects/Object.h"
+#include "src/objects/Overlay.h"
 #include "src/gui/GUIElement.h"
 #include "src/gui/Button.h"
 #include "src/objects/Player.h"
@@ -7,7 +8,6 @@
 #include "src/objects/Wall.h"
 #include "src/objects/HealthBar.h"
 #include "src/objects/Nikita.h"
-#include "src/objects/Vadid.h"
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Rect.hpp>
@@ -23,6 +23,7 @@
 using namespace std;
 
 Player* me;
+Overlay* gameOver;
 list<Object*> objects;
 vector<GUIElement*> mainMenu;
 clock_t lastUpdate;
@@ -102,10 +103,12 @@ void GameCycle(sf::RenderWindow& window, bool &exit) {
 	while (window.isOpen()) {
 		sf::Event event;
 
-		if (!me)
-			break;
-		me->Control(window, objects);
-		dragger.DoDrag(window);
+		if (me) {
+			me->Control(window, objects);
+			dragger.DoDrag(window);
+		}
+		else
+			gameOver->enabled = true;
 
 		checkedCollision.clear();
 		toDelete.clear();
@@ -159,8 +162,10 @@ void GameCycle(sf::RenderWindow& window, bool &exit) {
 		lastUpdate = clock();
 
 		for (Object* o : toDelete) {
-			if (o == me)
+			if (o == me) {
 				me = nullptr;
+				dragger.Release();
+			}
 			delete o;
 			objects.remove(o);
 		}
@@ -237,14 +242,14 @@ int main() {
 		Nikita* nikita = new Nikita();
 		nikita->MoveTo(Vector2(window_width - nikita->GetW() / 2, 0));
 		objects.push_back(nikita);
-		
-		Vadid* vadid = new Vadid(1);
-		vadid->MoveTo(Vector2(window_width / 2, 0));
-		objects.push_back(vadid);
 
 		Wall* wall = new Wall();
 		wall->MoveTo(Vector2(window_width - wall->GetW() / 2 - nikita->GetW(), 0));
 		objects.push_back(wall);
+
+		gameOver = new Overlay(Vector2(window_width / 2, window_height / 2), "../assets/textures/game_over.png");
+		gameOver->enabled = false;
+		objects.push_back(gameOver);
 
 		me = new Player(true);
 		objects.push_back(me);

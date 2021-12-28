@@ -1,5 +1,7 @@
 #include "Nikita.h"
 #include "Player.h"
+#include "Wall.h"
+#include "Vadid.h"
 #include "../global.h"
 
 const float attackRange = 300;
@@ -58,7 +60,23 @@ bool Nikita::Update(list<Object*>& objects) {
 
 	Rotate(direction, true);
 
-	return Healthy::Update(objects);
+    bool dead = Healthy::Update(objects);
+    if (dead) {
+		Vadid* vadid;
+        Wall* wall;
+        vadid = new Vadid(1);
+		vadid->MoveTo(Vector2(window_width / 2, 0));
+		objects.push_back(vadid);
+
+        wall = new Wall();
+        wall->MoveTo(Vector2(200, 0));
+        objects.push_back(wall);
+
+		wall = new Wall();
+		wall->MoveTo(Vector2(window_width - 200, 0));
+		objects.push_back(wall);
+	}
+    return dead;
 }
 
 Vector2 Nikita::RECT_SIZE = Vector2(1898 / 2, 707);
