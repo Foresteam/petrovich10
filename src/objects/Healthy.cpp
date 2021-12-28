@@ -30,7 +30,7 @@ void Healthy::Draw(sf::RenderWindow& window) {
 		healthBar->Draw(window);
 }
 void Healthy::InitHealthBar() {
-	healthBar = new HealthBar(this, (abs(this->GetScale().x) + abs(this->GetScale().y)) / 2);
+	healthBar = new HealthBar(this, GetW() / 100 / 2);
 }
 bool Healthy::Update(list<Object*>& objects) {
 	if (healthBar)
