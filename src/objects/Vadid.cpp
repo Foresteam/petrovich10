@@ -3,7 +3,7 @@
 #include "Overlay.h"
 #include <foresteamnd/Utils.h>
 
-Vadid::Vadid(float kDamage) : Healthy(150, "../assets/textures/boss.png", RECT_SIZE) {
+Vadid::Vadid(float kDamage) : Healthy(1, "../assets/textures/boss.png", RECT_SIZE) {
     this->kDamage = kDamage;
     this->mass = 1;
 	direction = 1;
@@ -107,7 +107,13 @@ bool Vadid::Update(list<Object*>& objects) {
         }
 	}
 
-	return Healthy::Update(objects);
+    bool dead = Healthy::Update(objects);
+    if (dead) {
+        Overlay* victory = new Overlay(Vector2(window_width / 2, window_height / 2), "../assets/textures/victory.png");
+        objects.push_back(victory);
+    }
+
+	return dead;
 }
 void Vadid::Draw(sf::RenderWindow& window) {
     Healthy::Draw(window);
