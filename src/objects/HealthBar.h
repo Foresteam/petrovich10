@@ -1,8 +1,8 @@
 #pragma once
-#include "Object.h"
+#include "Overlay.h"
 #include "Healthy.h"
 
-class HealthBar : public Object {
+class HealthBar : public Overlay {
 private:
     Healthy* parent;
     static Vector2 IMG_SIZE;

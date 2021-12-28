@@ -29,6 +29,8 @@ public:
 	void setImage(string filename);
 	void Scale(const Vector2& scale);
 
+	void Rotate(int direction, bool reversed);
+
 	float GetW();
 	float GetH();
 	Vector2 GetPos();

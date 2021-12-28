@@ -3,7 +3,7 @@
 HealthBar::~HealthBar() {
     delete _background;
 }
-HealthBar::HealthBar(Healthy* parent, float scale) : Object("../assets/textures/healthbar.png") {
+HealthBar::HealthBar(Healthy* parent, float scale) : Overlay(Vector2(), "../assets/textures/healthbar.png") {
 	this->parent = parent;
 
     _background = new Object("../assets/textures/healthbar_background.png");
@@ -13,10 +13,6 @@ HealthBar::HealthBar(Healthy* parent, float scale) : Object("../assets/textures/
     _background->kinematic = true;
     _background->Scale(scale);
 
-    mass = 0;
-    kinematic = true;
-    background = true;
-    transparent = true;
     Scale(scale);
 }
 

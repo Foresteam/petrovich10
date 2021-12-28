@@ -9,6 +9,7 @@ set(HEADERS
     src/global.h
     src/HitboxRect.h
     src/objects/Object.h
+    src/objects/Overlay.h
     src/objects/Healthy.h
     src/objects/Player.h
     src/objects/Sun.h
@@ -18,9 +19,9 @@ set(HEADERS
     src/objects/HealthBar.h
     src/gui/GUIElement.h
     src/gui/Button.h
-    src/Attack.h
-    src/MeleeAttack.h
-    src/SpikeAttack.h
+    src/attacks/Attack.h
+    src/attacks/MeleeAttack.h
+    src/attacks/SpikeAttack.h
     src/Dragger.h
 )
 set(SOURCES
@@ -28,6 +29,7 @@ set(SOURCES
     src/global.cpp
     src/HitboxRect.cpp
     src/objects/Object.cpp
+    src/objects/Overlay.cpp
     src/objects/Healthy.cpp
     src/objects/Player.cpp
     src/objects/Sun.cpp
@@ -37,9 +39,9 @@ set(SOURCES
     src/objects/HealthBar.cpp
     src/gui/GUIElement.cpp
     src/gui/Button.cpp
-    src/Attack.cpp
-    src/MeleeAttack.cpp
-    src/SpikeAttack.cpp
+    src/attacks/Attack.cpp
+    src/attacks/MeleeAttack.cpp
+    src/attacks/SpikeAttack.cpp
     src/Dragger.cpp
 )
 

@@ -5,6 +5,8 @@ Attack::Attack(float attackPower, float attackAnimTime, float attackCooldown, fl
 	this->attackAnimTime = attackAnimTime;
 	this->attackCooldown = attackCooldown;
 	this->attackDelay = attackDelay;
+	delayWait = 0;
+	lastSwing = 0;
 }
 
 bool Attack::Reset() {
@@ -26,4 +28,8 @@ bool Attack::Ready() {
 		return false;
 	lastSwing = 0;
 	return true;
+}
+
+void Attack::DoAttack(Object* attacker, int direction, list<Object*>& objects) {
+	lastSwing = clock();
 }

@@ -59,12 +59,28 @@ Vector2 Object::GetSize() {
 }
 
 bool Object::Update(list<Object*>& objects) {
+	Move(Vector2(velocity.x * deltaTime, 0));
+	if (onGround) {
+		// i've no idea how to make it dependent on deltaTime
+		velocity.x *= 0.95;
+	}
 	return false;
 }
 void Object::Draw(sf::RenderWindow& window) {
 	if (!enabled)
 		return;
 	window.draw(image);
+}
+
+void Object::Rotate(int direction, bool reversed) {
+	auto scale = image.getScale();
+	bool dlz = direction < 0;
+	if (reversed)
+		dlz = !dlz;
+	if (dlz && scale.x < 0)
+		image.setScale(-scale.x, scale.y);
+	else if (!dlz && scale.x > 0)
+		image.setScale(-scale.x, scale.y);
 }
 
 // void Object::Control() {

@@ -1,6 +1,6 @@
 #pragma once
 #include "Healthy.h"
-#include "../MeleeAttack.h"
+#include "../attacks/MeleeAttack.h"
 #include "../global.h"
 #include "../RandomSound.h"
 #include <time.h>
@@ -10,7 +10,7 @@ class Player : public Healthy {
 private:
     enum STATE { IDLE = 0, ATTACK };
 
-    static Vector2 IMG_SIZE;
+    static Vector2 RECT_SIZE;
     const float K_SPEED = 1e-1 * 6;
     const float JUMP_POWER = .221f;
 

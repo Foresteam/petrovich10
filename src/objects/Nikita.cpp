@@ -4,7 +4,7 @@
 
 const float attackRange = 300;
 
-Nikita::Nikita() : Healthy(100, "../assets/textures/enemy2.png", IMG_SIZE) {
+Nikita::Nikita() : Healthy(100, "../assets/textures/enemy2.png", RECT_SIZE) {
     mass = .5;
     Scale(Vector2(0.3f));
 	InitHealthBar();
@@ -25,11 +25,10 @@ void Nikita::TakeDamage(float amount, Object* source) {
         aSwordSliceSound.Play();
 }
 void Nikita::SetState(STATE state) {
-	image.setTextureRect(sf::IntRect(sf::Vector2i(IMG_SIZE.x * state, 0), v2i(IMG_SIZE)));
+	image.setTextureRect(sf::IntRect(sf::Vector2i(RECT_SIZE.x * state, 0), v2i(RECT_SIZE)));
 }
 
 bool Nikita::Update(list<Object*>& objects) {
-
 	Player* ply = nullptr;
     for (Object* o : objects)
         if (instanceof<Player>(o)) {
@@ -57,14 +56,9 @@ bool Nikita::Update(list<Object*>& objects) {
     if (!ply || !inRange)
         isSeeingPlayer = false;
 
-	auto scale = image.getScale();
-	if (direction > 0 && scale.x < 0)
-		image.setScale(-scale.x, scale.y);
-	else if (direction < 0 && scale.x > 0)
-		image.setScale(-scale.x, scale.y);
+	Rotate(direction, true);
 
-	Healthy::Update(objects);
-    return !Alive();
+	return Healthy::Update(objects);
 }
 
-Vector2 Nikita::IMG_SIZE = Vector2(1898 / 2, 707);
+Vector2 Nikita::RECT_SIZE = Vector2(1898 / 2, 707);

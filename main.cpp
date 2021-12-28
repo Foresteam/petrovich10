@@ -7,6 +7,7 @@
 #include "src/objects/Wall.h"
 #include "src/objects/HealthBar.h"
 #include "src/objects/Nikita.h"
+#include "src/objects/Vadid.h"
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Rect.hpp>
@@ -234,8 +235,12 @@ int main() {
 		objects.push_back(sun);
 
 		Nikita* nikita = new Nikita();
-		nikita->MoveTo(window_width - nikita->GetW() / 2);
+		nikita->MoveTo(Vector2(window_width - nikita->GetW() / 2, 0));
 		objects.push_back(nikita);
+		
+		Vadid* vadid = new Vadid(1);
+		vadid->MoveTo(Vector2(window_width / 2, 0));
+		objects.push_back(vadid);
 
 		Wall* wall = new Wall();
 		wall->MoveTo(Vector2(window_width - wall->GetW() / 2 - nikita->GetW(), 0));

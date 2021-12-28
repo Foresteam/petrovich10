@@ -35,6 +35,7 @@ void Healthy::InitHealthBar() {
 bool Healthy::Update(list<Object*>& objects) {
 	if (healthBar)
 		healthBar->Update(objects);
+	Object::Update(objects);
 	return !Alive();
 }
 void Healthy::TakeDamage(float amount, Object* source) {

@@ -1,5 +1,5 @@
 #include "MeleeAttack.h"
-#include "objects/Healthy.h"
+#include "../objects/Healthy.h"
 
 MeleeAttack::MeleeAttack(float range, float verticalRangePlus, float attackPower, float attackAnimTime, float attackCooldown, float attackDelay) : Attack(attackPower, attackAnimTime, attackCooldown, attackDelay) {
 	this->range = range;
@@ -15,10 +15,10 @@ sf::FloatRect MeleeAttack::GetZone(Object* attacker, int direction) {
 	return sf::FloatRect(sf::Vector2f(x, attacker->GetPos().y - attacker->GetH() / 2 - verticalRangePlus / 2), sf::Vector2f(szx, attacker->GetH() + verticalRangePlus * 2));
 }
 void MeleeAttack::DoAttack(Object* attacker, int direction, list<Object*>& objects) {
-	lastSwing = clock();
+	Attack::DoAttack(attacker, direction, objects);
 	sf::FloatRect zone = GetZone(attacker, direction);
 
 	for (Object* o : objects)
-		if (instanceof <Healthy>(o) && o != attacker && sf::FloatRect(v2f(o->GetPos() - (o->GetSize() / 2)), v2f(o->GetSize())).intersects(zone))
+		if (o != attacker && instanceof<Healthy>(o) && sf::FloatRect(v2f(o->GetPos() - (o->GetSize() / 2)), v2f(o->GetSize())).intersects(zone))
 			((Healthy*)o)->TakeDamage(attackPower, attacker);
 }

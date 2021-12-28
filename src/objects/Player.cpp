@@ -2,7 +2,7 @@
 #include "HealthBar.h"
 #include "../global.h"
 
-Player::Player(bool isMe) : Healthy(100, "../assets/textures/player.png", IMG_SIZE) {
+Player::Player(bool isMe) : Healthy(100, "../assets/textures/player.png", RECT_SIZE) {
 	this->isMe = isMe;
 
 	attack = new MeleeAttack(100, 0, 10, .2f, .3f);
@@ -17,19 +17,17 @@ Player::~Player() {
 }
 
 void Player::SetState(STATE state) {
-	image.setTextureRect(sf::IntRect(sf::Vector2i(IMG_SIZE.x * state, 0), v2i(IMG_SIZE)));
+	image.setTextureRect(sf::IntRect(sf::Vector2i(RECT_SIZE.x * state, 0), v2i(RECT_SIZE)));
 }
 
 void Player::Control(sf::RenderWindow& window, list<Object*>& objects) {
 	int plyMove = (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) - sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A));
 	direction = plyMove ? plyMove : direction;
-	auto scale = image.getScale();
-	if (plyMove < 0 && scale.x < 0)
-		image.setScale(-scale.x, scale.y);
-	else if (plyMove > 0 && scale.x > 0)
-		image.setScale(-scale.x, scale.y);
-	velocity.x = plyMove * deltaTime * KSpeed();
-	Move(Vector2(velocity.x, 0));
+	
+	Rotate(direction, false);
+
+	velocity.x = plyMove * KSpeed() * (!onGround + 1);
+	// Move(Vector2(velocity.x, 0));
 
 	if (onGround && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) // velocity.y == 0
 		velocity.y -= JumpPower();
@@ -64,4 +62,4 @@ void Player::TakeDamage(float amount, Object* source) {
 		aSwordSliceSound.Play();
 }
 
-Vector2 Player::IMG_SIZE = Vector2(180, 199);
+Vector2 Player::RECT_SIZE = Vector2(180, 199);

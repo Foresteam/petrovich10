@@ -1,7 +1,5 @@
 #include "RandomSound.h"
 #include <foresteamnd/Utils>
-#include <chrono>
-#include <thread>
 
 RandomSound::~RandomSound() {
     delete[] buffers;
