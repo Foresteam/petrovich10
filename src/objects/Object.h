@@ -29,6 +29,9 @@ public:
 	void setImage(string filename);
 	void Scale(const Vector2& scale);
 
+	void Gravitate();
+	void Collide(Object& other);
+
 	void Rotate(int direction, bool reversed);
 
 	float GetW();
