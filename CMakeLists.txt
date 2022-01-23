@@ -4,6 +4,9 @@ project(LR10 VERSION 0.1.0)
 include(CTest)
 enable_testing()
 
+include_directories(LR10 PUBLIC include)
+link_directories(LR10 PUBLIC lib)
+
 set(HEADERS
     src/RandomSound.h
     src/global.h
