@@ -4,10 +4,10 @@
 #include "RandomSound.h"
 #include <string>
 
-#ifdef NDEBUG
-	#define ASSETS std::string("assets/")
-#else
+#ifdef DEBUG
 	#define ASSETS std::string("../assets/")
+#else
+	#define ASSETS std::string("assets/")
 #endif
 
 const float G = 9.8, G_SCALE = 1.e-1;
