@@ -3,12 +3,12 @@
 #include <foresteamnd/Vector2>
 #include "RandomSound.h"
 
-const float G = 9.8, G_SCALE = 1.e-4;
+const float G = 9.8, G_SCALE = 1.e-1;
 const int FPS = 60;
 
-const int window_width = 1280, window_height = 720;
+const int WINDOW_WIDTH = 1280, WINDOW_HEIGHT = 720;
 
-extern float deltaTime;
+extern double deltaTime;
 extern RandomSound aSwordSwingSound, aSwordSliceSound, aSwordExecuteSound;
 extern sf::SoundBuffer wallBreakBuffer;
 extern sf::Sound wallBreakSound;

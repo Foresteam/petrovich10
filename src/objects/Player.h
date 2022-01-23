@@ -11,8 +11,8 @@ private:
     enum STATE { IDLE = 0, ATTACK };
 
     static Vector2 RECT_SIZE;
-    const float K_SPEED = 1e-1 * 6;
-    const float JUMP_POWER = .21f;
+    const float K_SPEED = 1e+2 * 6;
+    const float JUMP_POWER = .18f;
 
     int direction;
     MeleeAttack* attack;

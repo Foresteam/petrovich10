@@ -1,6 +1,6 @@
 #include "global.h"
 
-float deltaTime = 0;
+double deltaTime = 0;
 
 Vector2 f2v(const sf::Vector2f& vec) {
     return Vector2(vec.x, vec.y);

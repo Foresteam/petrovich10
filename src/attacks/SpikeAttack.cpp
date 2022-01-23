@@ -7,7 +7,7 @@ SpikeAttack::SpikeAttack(float height, float attackPower, float attackAnimTime, 
 
 void SpikeAttack::DoAttack(Object* attacker, int direction, list<Object*>& objects) {
 	Attack::DoAttack(attacker, direction, objects);
-	sf::FloatRect hitbox = sf::FloatRect(sf::Vector2f(0, window_height - height), sf::Vector2f(window_width, height));
+	sf::FloatRect hitbox = sf::FloatRect(sf::Vector2f(0, WINDOW_HEIGHT - height), sf::Vector2f(WINDOW_WIDTH, height));
 
     for (Object* o : objects)
         if (o != attacker && instanceof<Healthy>(o) && hitbox.intersects(o->image.getGlobalBounds()))

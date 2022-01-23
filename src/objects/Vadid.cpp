@@ -16,7 +16,7 @@ Vadid::Vadid(float kDamage) : Healthy(150, "../assets/textures/boss.png", RECT_S
     attacked = false;
 
     wave = nullptr;
-    title = new Overlay(Vector2(window_width / 2, window_height / 2), "../assets/textures/boss_title.png");
+    title = new Overlay(Vector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), "../assets/textures/boss_title.png");
 
     rasenganBuffer.loadFromFile("../assets/sounds/rassengan.ogg");
     rasenganSound.setBuffer(rasenganBuffer);
@@ -50,7 +50,7 @@ bool Vadid::Update(list<Object*>& objects) {
 		}
 
 	if (!lastChoice.attack)
-		if (onGround)
+		if (!ply || onGround) // wtf?
 			SetState(IDLE);
 		else
 			SetState(JUMP_ATTACK);
@@ -73,7 +73,7 @@ bool Vadid::Update(list<Object*>& objects) {
                 SetState(lastChoice.stateCharge);
                 if (instanceof<SpikeAttack>(lastChoice.attack)) {
                     velocity.y += -mass * 0.4 * GetScale().Length();
-					wave = new Overlay(Vector2(window_width / 2, window_height - 100 / 2) , "../assets/textures/flame.png");
+					wave = new Overlay(Vector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT - 100 / 2) , "../assets/textures/flame.png");
 					wave->enabled = false;
                 }
             }
@@ -99,8 +99,8 @@ bool Vadid::Update(list<Object*>& objects) {
                         rasenganSound.play();
                     else {
 						velocity += Vector2(
-							((ply->GetPos().x < GetPos().x) * 2 - 1) * -0.5 * ply->GetPos().Distance(GetPos()) / 100,
-							-.2f * mass * GetScale().Length() + (1 - (GetPos().y / ply->GetPos().y)) / 4
+							((ply->GetPos().x < GetPos().x) * 2 - 1) * -0.5 * ply->GetPos().Distance(GetPos()) * 1e+1,
+							-.2f * mass * GetScale().Length() + (1 - (GetPos().y / ply->GetPos().y)) / 8
                         );
 					}
                 }
@@ -109,7 +109,7 @@ bool Vadid::Update(list<Object*>& objects) {
 
     bool dead = Healthy::Update(objects);
     if (dead) {
-        Overlay* victory = new Overlay(Vector2(window_width / 2, window_height / 2), "../assets/textures/victory.png");
+        Overlay* victory = new Overlay(Vector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), "../assets/textures/victory.png");
         objects.push_back(victory);
     }
 

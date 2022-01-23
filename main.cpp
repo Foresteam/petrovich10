@@ -8,6 +8,7 @@
 #include "src/objects/Wall.h"
 #include "src/objects/HealthBar.h"
 #include "src/objects/Nikita.h"
+// #include "src/objects/Vadid.h"
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Rect.hpp>
@@ -15,6 +16,7 @@
 #include <list>
 #include <vector>
 #include <thread>
+#include <chrono>
 #include <time.h>
 #include <unistd.h>
 #include <map>
@@ -26,7 +28,6 @@ Player* me;
 Overlay* gameOver;
 list<Object*> objects;
 vector<GUIElement*> mainMenu;
-clock_t lastUpdate;
 Dragger dragger;
 
 void Gravitate(Object* object) {
@@ -78,26 +79,41 @@ void FitInScreen(Object* object) {
 		object->MoveTo(Vector2(0 + object->GetW() / 2, object->GetPos().y));
 		object->velocity.x = 0;
 	}
-	if (object->GetPos().x > window_width - object->GetW() / 2) {
-		object->MoveTo(Vector2(window_width - object->GetW() / 2, object->GetPos().y));
+	if (object->GetPos().x > WINDOW_WIDTH - object->GetW() / 2) {
+		object->MoveTo(Vector2(WINDOW_WIDTH - object->GetW() / 2, object->GetPos().y));
 		object->velocity.x = 0;
 	}
 	if (object->GetPos().y < 0 + object->GetH() / 2) {
 		object->MoveTo(Vector2(object->GetPos().x, 0 + object->GetH() / 2));
 		object->velocity.y = 0;
 	}
-	if (object->GetPos().y > window_height - object->GetH() / 2) {
+	if (object->GetPos().y > WINDOW_HEIGHT - object->GetH() / 2) {
 		object->onGround = true;
-		object->MoveTo(Vector2(object->GetPos().x, window_height - object->GetH() / 2));
+		object->MoveTo(Vector2(object->GetPos().x, WINDOW_HEIGHT - object->GetH() / 2));
 		object->velocity.y = 0;
 	}
 }
 
-void GameCycle(sf::RenderWindow& window, bool &exit) {
-	float renderWait = 0;
-	clock_t lastUpdate = clock();
+double renderWait = 0;
+// this clock is the fix for tremendous GPU utilizing. Alongside with FPS limiting, ofc
+chrono::_V2::system_clock::time_point lastUpdate = chrono::high_resolution_clock::now();
+void DeltaTime() {
+	deltaTime = (chrono::high_resolution_clock::now() - lastUpdate).count() / 1.e+9;
+	lastUpdate = chrono::high_resolution_clock::now();
+}
+bool RenderWait() {
+	if (renderWait > 1.f / FPS) {
+		renderWait = 0;
+		return true;
+	}
+	else {
+		renderWait += deltaTime;
+		return false;
+	}
+}
 
-	deltaTime = clock() / 1000.f;
+void GameCycle(sf::RenderWindow& window, bool &exit) {
+	DeltaTime();
 	map<Object*, Object*> checkedCollision;
 	list<Object*> toDelete;
 	while (window.isOpen()) {
@@ -146,20 +162,16 @@ void GameCycle(sf::RenderWindow& window, bool &exit) {
 					return;
 			}
 		}
-		// draw all objects
-		if (renderWait > 1.f / FPS) {
+
+		DeltaTime();
+
+		// draw the objects
+		if (RenderWait()) {
 			window.clear();
 			for (Object* o : objects)
 				o->Draw(window);
-			// display everything
 			window.display();
-
-			renderWait = 0;
 		}
-		else
-			renderWait += deltaTime;
-		deltaTime = (clock() - lastUpdate) / 1000.f;
-		lastUpdate = clock();
 
 		for (Object* o : toDelete) {
 			if (o == me) {
@@ -174,6 +186,12 @@ void GameCycle(sf::RenderWindow& window, bool &exit) {
 
 void MainMenu(sf::RenderWindow& window, bool& exit) {
 	while (window.isOpen()) {
+		DeltaTime();
+		// here we limit, mostly, CPU performance, to not make it calculate the nothing that happens
+		// we can do this 'cuz then we use pollEvent, that "stacks" the incoming events, 'til take pull 'em out
+		if (RenderWait())
+			this_thread::sleep_for(chrono::milliseconds(100));
+
 		sf::Event event;
 		while (window.pollEvent(event)) {
 			switch (event.type) {
@@ -215,11 +233,11 @@ int main() {
 	wallBreakBuffer.loadFromFile("../assets/sounds/wall_break.ogg");
 	wallBreakSound.setBuffer(wallBreakBuffer);
 
-	mainMenu.push_back(new GUIElement(Vector2(window_width / 2, window_height / 2), "../assets/textures/mainmenu.jpg"));
-	mainMenu.push_back(new Button(Vector2(window_width / 2, 200), "../assets/textures/playbutton.png"));
-	mainMenu.push_back(new Button(Vector2(window_width / 2, 500), "../assets/textures/exitbutton.png"));
+	mainMenu.push_back(new GUIElement(Vector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), "../assets/textures/mainmenu.jpg"));
+	mainMenu.push_back(new Button(Vector2(WINDOW_WIDTH / 2, 200), "../assets/textures/playbutton.png"));
+	mainMenu.push_back(new Button(Vector2(WINDOW_WIDTH / 2, 500), "../assets/textures/exitbutton.png"));
 
-	sf::RenderWindow window(sf::VideoMode(window_width, window_height), "Ah sh, here we go again");
+	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Ah sh, here we go again");
 	// add sun to the list of objects
 	// move sun to the center of the screen
 
@@ -232,22 +250,26 @@ int main() {
 		background->background = true;
 		background->kinematic = true;
 		background->transparent = true;
-		background->MoveTo(Vector2(window_width / 2, window_height / 2));
+		background->MoveTo(Vector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2));
 		objects.push_back(background);
 
 		Sun* sun = new Sun();
-		sun->MoveTo(Vector2(window_width / 2, sun->GetH() / 2));
+		sun->MoveTo(Vector2(WINDOW_WIDTH / 2, sun->GetH() / 2));
 		objects.push_back(sun);
 
 		Nikita* nikita = new Nikita();
-		nikita->MoveTo(Vector2(window_width - nikita->GetW() / 2, 0));
+		nikita->MoveTo(Vector2(WINDOW_WIDTH - nikita->GetW() / 2, 0));
 		objects.push_back(nikita);
 
+		// Vadid* vadid = new Vadid(1);
+		// vadid->MoveTo(Vector2(WINDOW_WIDTH / 2, 0));
+		// objects.push_back(vadid);
+
 		Wall* wall = new Wall();
-		wall->MoveTo(Vector2(window_width - wall->GetW() / 2 - nikita->GetW(), 0));
+		wall->MoveTo(Vector2(WINDOW_WIDTH - wall->GetW() / 2 - nikita->GetW(), 0));
 		objects.push_back(wall);
 
-		gameOver = new Overlay(Vector2(window_width / 2, window_height / 2), "../assets/textures/game_over.png");
+		gameOver = new Overlay(Vector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), "../assets/textures/game_over.png");
 		gameOver->enabled = false;
 		objects.push_back(gameOver);
 

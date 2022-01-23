@@ -12,7 +12,7 @@ Nikita::Nikita() : Healthy(100, "../assets/textures/enemy2.png", RECT_SIZE) {
 	InitHealthBar();
     isSeeingPlayer = false;
     direction = 1;
-    attack = new MeleeAttack(attackRange, 70, 50, .5f, 1, .7f);
+    attack = new MeleeAttack(attackRange, 70, 50, .5f, 1, .5f);
     SetState(IDLE);
 }
 Nikita::~Nikita() {
@@ -65,7 +65,7 @@ bool Nikita::Update(list<Object*>& objects) {
 		Vadid* vadid;
         Wall* wall;
         vadid = new Vadid(1);
-		vadid->MoveTo(Vector2(window_width / 2, 0));
+		vadid->MoveTo(Vector2(WINDOW_WIDTH / 2, 0));
 		objects.push_back(vadid);
 
         wall = new Wall();
@@ -73,7 +73,7 @@ bool Nikita::Update(list<Object*>& objects) {
         objects.push_back(wall);
 
 		wall = new Wall();
-		wall->MoveTo(Vector2(window_width - 200, 0));
+		wall->MoveTo(Vector2(WINDOW_WIDTH - 200, 0));
 		objects.push_back(wall);
 	}
     return dead;
