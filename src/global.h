@@ -4,10 +4,12 @@
 #include "RandomSound.h"
 #include <string>
 
+extern std::string EXE_PATH;
+
 #ifdef DEBUG
-	#define ASSETS std::string("../assets/")
+	#define ASSETS EXE_PATH + "/../assets/"
 #else
-	#define ASSETS std::string("assets/")
+	#define ASSETS EXE_PATH + "/assets/"
 #endif
 
 const float G = 9.8, G_SCALE = 1.e-1;

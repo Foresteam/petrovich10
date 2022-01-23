@@ -1,4 +1,8 @@
 #include "global.h"
+#include <limits.h>
+#include <string.h>
+#include <unistd.h>
+#include <foresteamnd/ExePath>
 
 double deltaTime = 0;
 
@@ -14,6 +18,8 @@ Vector2 i2v(const sf::Vector2i& vec) {
 sf::Vector2i v2i(const Vector2& vec) {
     return sf::Vector2i(vec.x, vec.y);
 }
+
+std::string EXE_PATH = ExePath::getExecutableDir();
 
 RandomSound aSwordSwingSound = RandomSound(ASSETS + "sounds/swing", ".ogg", 5);
 RandomSound aSwordSliceSound = RandomSound(ASSETS + "sounds/slice", ".ogg", 6);
