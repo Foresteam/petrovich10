@@ -3,6 +3,7 @@ project(LR10 VERSION 0.1.0)
 
 include(CTest)
 enable_testing()
+add_compile_options("$<$<CONFIG:DEBUG>:-DDEBUG>")
 
 include_directories(LR10 PUBLIC include)
 link_directories(LR10 PUBLIC lib)
