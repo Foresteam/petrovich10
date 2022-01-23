@@ -1,12 +1,12 @@
 #include "Wall.h"
 
-Wall::Wall() : Healthy(100, "../assets/textures/wall.png") {
+Wall::Wall() : Healthy(100, ASSETS + "textures/wall.png") {
     mass = 500;
     // kinematic = true;
     Scale(Vector2(.6f));
     InitHealthBar();
 
-    hitBuffer.loadFromFile("../assets/sounds/sword_hits_wall.ogg");
+    hitBuffer.loadFromFile(ASSETS + "sounds/sword_hits_wall.ogg");
     hitSound.setBuffer(hitBuffer);
 }
 

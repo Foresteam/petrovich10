@@ -1,6 +1,6 @@
 #include "Sun.h"
 
-Sun::Sun() : Object("../assets/textures/sun.png") {
+Sun::Sun() : Object(ASSETS + "textures/sun.png") {
 	kinematic = true;
 	background = true;
 	mass = 0;

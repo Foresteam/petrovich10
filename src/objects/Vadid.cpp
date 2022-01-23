@@ -3,7 +3,7 @@
 #include "Overlay.h"
 #include <foresteamnd/Utils.h>
 
-Vadid::Vadid(float kDamage) : Healthy(150, "../assets/textures/boss.png", RECT_SIZE) {
+Vadid::Vadid(float kDamage) : Healthy(150, ASSETS + "textures/boss.png", RECT_SIZE) {
     this->kDamage = kDamage;
     this->mass = 1;
 	direction = 1;
@@ -16,9 +16,9 @@ Vadid::Vadid(float kDamage) : Healthy(150, "../assets/textures/boss.png", RECT_S
     attacked = false;
 
     wave = nullptr;
-    title = new Overlay(Vector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), "../assets/textures/boss_title.png");
+    title = new Overlay(Vector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), ASSETS + "textures/boss_title.png");
 
-    rasenganBuffer.loadFromFile("../assets/sounds/rassengan.ogg");
+    rasenganBuffer.loadFromFile(ASSETS + "sounds/rassengan.ogg");
     rasenganSound.setBuffer(rasenganBuffer);
 
 	InitHealthBar();
@@ -73,7 +73,7 @@ bool Vadid::Update(list<Object*>& objects) {
                 SetState(lastChoice.stateCharge);
                 if (instanceof<SpikeAttack>(lastChoice.attack)) {
                     velocity.y += -mass * 0.4 * GetScale().Length();
-					wave = new Overlay(Vector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT - 100 / 2) , "../assets/textures/flame.png");
+					wave = new Overlay(Vector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT - 100 / 2) , ASSETS + "textures/flame.png");
 					wave->enabled = false;
                 }
             }
@@ -109,7 +109,7 @@ bool Vadid::Update(list<Object*>& objects) {
 
     bool dead = Healthy::Update(objects);
     if (dead) {
-        Overlay* victory = new Overlay(Vector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), "../assets/textures/victory.png");
+        Overlay* victory = new Overlay(Vector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), ASSETS + "textures/victory.png");
         objects.push_back(victory);
     }
 

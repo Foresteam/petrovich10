@@ -6,7 +6,7 @@
 
 const float attackRange = 300;
 
-Nikita::Nikita() : Healthy(100, "../assets/textures/enemy2.png", RECT_SIZE) {
+Nikita::Nikita() : Healthy(100, ASSETS + "textures/enemy2.png", RECT_SIZE) {
     mass = .5;
     Scale(Vector2(0.3f));
 	InitHealthBar();

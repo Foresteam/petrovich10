@@ -15,9 +15,9 @@ sf::Vector2i v2i(const Vector2& vec) {
     return sf::Vector2i(vec.x, vec.y);
 }
 
-RandomSound aSwordSwingSound = RandomSound("../assets/sounds/swing", ".ogg", 5);
-RandomSound aSwordSliceSound = RandomSound("../assets/sounds/slice", ".ogg", 6);
-RandomSound aSwordExecuteSound = RandomSound("../assets/sounds/sword_execute", ".ogg", 9);
+RandomSound aSwordSwingSound = RandomSound(ASSETS + "sounds/swing", ".ogg", 5);
+RandomSound aSwordSliceSound = RandomSound(ASSETS + "sounds/slice", ".ogg", 6);
+RandomSound aSwordExecuteSound = RandomSound(ASSETS + "sounds/sword_execute", ".ogg", 9);
 
 sf::SoundBuffer wallBreakBuffer;
 sf::Sound wallBreakSound;

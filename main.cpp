@@ -186,12 +186,12 @@ int main() {
 	// printf("Enter host IP (or leave empty to become one): ");
 	// getline(cin, ip);
 
-	wallBreakBuffer.loadFromFile("../assets/sounds/wall_break.ogg");
+	wallBreakBuffer.loadFromFile((ASSETS + "sounds/wall_break.ogg").c_str());
 	wallBreakSound.setBuffer(wallBreakBuffer);
 
-	mainMenu.push_back(new GUIElement(Vector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), "../assets/textures/mainmenu.jpg"));
-	mainMenu.push_back(new Button(Vector2(WINDOW_WIDTH / 2, 200), "../assets/textures/playbutton.png"));
-	mainMenu.push_back(new Button(Vector2(WINDOW_WIDTH / 2, 500), "../assets/textures/exitbutton.png"));
+	mainMenu.push_back(new GUIElement(Vector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), ASSETS + "textures/mainmenu.jpg"));
+	mainMenu.push_back(new Button(Vector2(WINDOW_WIDTH / 2, 200), (ASSETS + "textures/playbutton.png").c_str()));
+	mainMenu.push_back(new Button(Vector2(WINDOW_WIDTH / 2, 500), (ASSETS + "textures/exitbutton.png").c_str()));
 
 	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Ah sh, here we go again");
 	// add sun to the list of objects
@@ -202,7 +202,7 @@ int main() {
 		MainMenu(window, exit);
 		if (exit)
 			return 0;
-		Object* background = new Object("../assets/textures/game_background.jpg");
+		Object* background = new Object(ASSETS + "textures/game_background.jpg");
 		background->background = true;
 		background->kinematic = true;
 		background->transparent = true;
@@ -225,7 +225,7 @@ int main() {
 		wall->MoveTo(Vector2(WINDOW_WIDTH - wall->GetW() / 2 - nikita->GetW(), 0));
 		objects.push_back(wall);
 
-		gameOver = new Overlay(Vector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), "../assets/textures/game_over.png");
+		gameOver = new Overlay(Vector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), ASSETS + "textures/game_over.png");
 		gameOver->enabled = false;
 		objects.push_back(gameOver);
 

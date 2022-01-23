@@ -2,7 +2,7 @@
 #include "HealthBar.h"
 #include "../global.h"
 
-Player::Player(bool isMe) : Healthy(100, "../assets/textures/player.png", RECT_SIZE) {
+Player::Player(bool isMe) : Healthy(100, ASSETS + "textures/player.png", RECT_SIZE) {
 	this->isMe = isMe;
 
 	direction = -1;
