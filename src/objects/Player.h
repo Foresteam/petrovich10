@@ -12,7 +12,7 @@ private:
 
     static Vector2 RECT_SIZE;
     const float K_SPEED = 1e+2 * 6;
-    const float JUMP_POWER = .18f;
+    const float JUMP_POWER = .15f;
 
     int direction;
     MeleeAttack* attack;
