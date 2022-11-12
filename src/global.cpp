@@ -19,7 +19,11 @@ sf::Vector2i v2i(const Vector2& vec) {
     return sf::Vector2i(vec.x, vec.y);
 }
 
-std::string EXE_PATH = ExePath::getExecutableDir();
+std::string DefaultToLocal(std::string path) {
+	return path.length() > 1 ? path : "./";
+}
+
+std::string EXE_PATH = DefaultToLocal(ExePath::getExecutableDir());
 
 RandomSound aSwordSwingSound = RandomSound(ASSETS + "sounds/swing", ".ogg", 5);
 RandomSound aSwordSliceSound = RandomSound(ASSETS + "sounds/slice", ".ogg", 6);
