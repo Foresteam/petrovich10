@@ -55,11 +55,6 @@ add_executable(LR10
     main.cpp
 )
 
-if(WIN32)
-		target_link_libraries(LR10 shlwapi)
-else()
-	target_link_libraries(LR10 FLAC ogg)
-endif()
 target_link_libraries(LR10
     foresteamnd
     pthread
@@ -68,6 +63,11 @@ target_link_libraries(LR10
     sfml-audio
     sfml-system
 )
+if(WIN32)
+	target_link_libraries(LR10 shlwapi)
+else()
+	target_link_libraries(LR10 FLAC ogg)
+endif()
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
