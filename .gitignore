@@ -5,4 +5,4 @@ include
 lib
 bin
 petrovich10-linux.*
-petrovich10-win32.*
+petrovich10-win32*
