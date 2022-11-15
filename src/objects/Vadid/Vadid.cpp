@@ -131,10 +131,8 @@ void Vadid::Draw(sf::RenderWindow& window) {
 			_afterimages.pop_front();
 		}
 		auto i = 0;
-		for (auto it = _afterimages.rbegin(); it != _afterimages.rend(); it++, i++) {
-			printf("%i\n", (int)(255 / _afterimages.size() * i));
+		for (auto it = _afterimages.rbegin(); it != _afterimages.rend(); it++, i++)
 			(*it)->SetColor(sf::Color(255, 255, 255, 255 - 255 / _afterimages.size() * i));
-		}
 	}
 	for (auto afterimage : _afterimages)
 		afterimage->Draw(window);
