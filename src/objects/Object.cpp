@@ -22,7 +22,6 @@ Object::Object(string filename, Vector2 textureRectSize) {
 
 	onGround = false;
 	hitbox = HitboxRect(&_pos, &_size);
-	_verticalPosPredicted = Vector();
 }
 Object::~Object() {}
 int Object::MoveTo(const Vector2& npos) {

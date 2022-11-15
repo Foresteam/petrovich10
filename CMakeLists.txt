@@ -65,8 +65,13 @@ target_link_libraries(LR10
 )
 if(WIN32)
 	target_link_libraries(LR10 shlwapi)
+	execute_process(
+		COMMAND cp ../assets assets
+		COMMAND cp ../bin/*.dll .
+	)
 else()
 	target_link_libraries(LR10 FLAC ogg)
+	execute_process(COMMAND ln -s ../assets)
 endif()
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})

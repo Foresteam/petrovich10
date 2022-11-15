@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Petrovich10
+Exec=AppRun --no-sandbox %U
+Terminal=false
+Type=Application
+Icon=lr10
+StartupWMClass=Petrovich10
+X-AppImage-Version=1.0.0
+Comment=Petrovich - LR10
+Categories=Game;
