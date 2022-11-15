@@ -29,4 +29,4 @@ cmake -DCMAKE_BUILD_TYPE=Release . -B build
 cmake --build build -j12
 cp build/LR10 dist
 
-ARCH=x86_64 appimagetool dist dist/Petrovich10.AppImage
+ARCH=x86_64 appimagetool dist dist/petrovich10-linux.AppImage

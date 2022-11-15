@@ -32,6 +32,6 @@ OR run **pack_appimage.sh**
 6. Copy the contents of SFML/bin to that folder
 7. Open **build** folder in terminal (powershell, for example)
 ```bash
-cmake -DCMAKE_BUILD_TYPE=Release ..
-cmake --build . -G "MinGW Makefiles" --config Release
+cmake -DCMAKE_BUILD_TYPE=Release -G "MinGW Makefiles" ..
+cmake --build . --config Release
 ```

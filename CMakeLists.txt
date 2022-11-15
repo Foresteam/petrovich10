@@ -66,7 +66,7 @@ target_link_libraries(LR10
 if(WIN32)
 	target_link_libraries(LR10 shlwapi)
 	execute_process(
-		COMMAND cp ../assets assets
+		COMMAND cp -r ../assets assets
 		COMMAND cp ../bin/*.dll .
 	)
 else()
