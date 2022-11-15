@@ -31,3 +31,7 @@ RandomSound aSwordExecuteSound = RandomSound(ASSETS + "sounds/sword_execute", ".
 
 sf::SoundBuffer wallBreakBuffer;
 sf::Sound wallBreakSound;
+
+float CalcJumpPower(Vector2 scale, float mass, float boost) {
+	return BASE_JUMP_POWER * scale.Length() * mass * boost;
+}

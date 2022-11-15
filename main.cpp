@@ -43,8 +43,9 @@ void FitInScreen(Object* object) {
 		object->MoveTo(Vector2(object->GetPos().x, 0 + object->GetH() / 2));
 		object->velocity.y = 0;
 	}
-	if (object->GetPos().y > WINDOW_HEIGHT - object->GetH() / 2) {
+	if (object->GetPos().y >= WINDOW_HEIGHT - object->GetH() / 2)
 		object->onGround = true;
+	if (object->GetPos().y > WINDOW_HEIGHT - object->GetH() / 2) {
 		object->MoveTo(Vector2(object->GetPos().x, WINDOW_HEIGHT - object->GetH() / 2));
 		object->velocity.y = 0;
 	}
@@ -218,13 +219,13 @@ int main() {
 		nikita->MoveTo(Vector2(WINDOW_WIDTH - nikita->GetW() / 2, 0));
 		objects.push_back(nikita);
 
-		// Vadid* vadid = new Vadid(1);
-		// vadid->MoveTo(Vector2(WINDOW_WIDTH / 2, 0));
-		// objects.push_back(vadid);
-
 		Wall* wall = new Wall();
 		wall->MoveTo(Vector2(WINDOW_WIDTH - wall->GetW() / 2 - nikita->GetW(), 0));
 		objects.push_back(wall);
+
+		// Vadid* vadid = new Vadid(1);
+		// vadid->MoveTo(Vector2(WINDOW_WIDTH / 2, 0));
+		// objects.push_back(vadid);
 
 		gameOver = new Overlay(Vector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), ASSETS + "textures/game_over.png");
 		gameOver->enabled = false;

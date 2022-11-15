@@ -2,11 +2,7 @@
 10 laba, SFML.
 My homework (a game written in C++, cross-platform).
 
-## Run on Linux
-1. Install SFML 2.5.1 and the [listed SO libraries](https://www.sfml-dev.org/tutorials/2.5/compile-with-cmake.php#installing-dependencies)
-2. Download a binary distribution
-
-## Run on Windows
+## Run
 Download a binary distribution
 
 ## Build on Linux

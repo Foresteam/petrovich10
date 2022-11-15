@@ -12,7 +12,8 @@ extern std::string EXE_PATH;
 	#define ASSETS EXE_PATH + "/assets/"
 #endif
 
-const float G = 9.8, G_SCALE = 500;
+const float G = 9.8, G_SCALE = .8e+3f;
+const float BASE_JUMP_POWER = G * G_SCALE / 4.5f;
 const int FPS = 60;
 
 const int WINDOW_WIDTH = 1280, WINDOW_HEIGHT = 720;
@@ -21,6 +22,8 @@ extern double deltaTime;
 extern RandomSound aSwordSwingSound, aSwordSliceSound, aSwordExecuteSound;
 extern sf::SoundBuffer wallBreakBuffer;
 extern sf::Sound wallBreakSound;
+
+float CalcJumpPower(Vector2 scale, float mass = 1, float boost = 1);
 
 // struct Shared {
 // 	Player* me;

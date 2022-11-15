@@ -51,8 +51,10 @@ void Object::Gravitate() {
 		return;
 	auto ex = velocity;
 	velocity += GravitationVector() * deltaTime;
+#ifdef DEBUG
 	if (ex.y * velocity.y < 0)
 		printf("%s\n", _pos.ToString().c_str());
+#endif
 	Move(Vector2(0, velocity.y * deltaTime));
 }
 void Object::Collide(Object& other) {
@@ -108,6 +110,10 @@ Vector2 Object::GetSize() {
 
 bool Object::Update(list<Object*>& objects) {
 	Move(Vector2(velocity.x * deltaTime, 0));
+	if (onGround)
+		velocity.x *= max(0., 1 - 3.5 * deltaTime);
+	if (abs(velocity.x) < 50)
+		velocity.x = 0;
 	return false;
 }
 void Object::Draw(sf::RenderWindow& window) {

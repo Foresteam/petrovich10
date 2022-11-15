@@ -8,33 +8,33 @@ private:
 	static Vector2 RECT_SIZE;
 	enum STATE { IDLE = 0, JUMP_PREPARE = 2, ATTACK = 3, JUMP_ATTACK };
 
-    struct Choise {
-        Attack* attack;
-        STATE stateAttack, stateCharge;
-        Choise() {
-            attack = nullptr;
-            stateAttack = IDLE;
+	struct Choise {
+		Attack* attack;
+		STATE stateAttack, stateCharge;
+		Choise() {
+			attack = nullptr;
+			stateAttack = IDLE;
 			stateCharge = IDLE;
 		}
 		Choise(Attack* attack, STATE stateAttack, STATE stateCharge) {
 			this->attack = attack;
-            this->stateAttack = stateAttack;
+			this->stateAttack = stateAttack;
 			this->stateCharge = stateCharge;
 		}
 	};
 
 	int direction;
-    float kDamage;
+	float kDamage;
 	MeleeAttack* touchAttack;
-    SpikeAttack* spikeAttack;
+	SpikeAttack* spikeAttack;
 	Attack* jumpAttack;
 
-    const float choiseInterval = 2;
-    float choiseTimer;
-    Choise lastChoice;
-    bool attacked;
+	const float choiseInterval = 2;
+	float choiseTimer;
+	Choise lastChoice;
+	bool attacked;
 
-    Object* wave;
+	Object* wave;
 	Object* title;
 
 	sf::SoundBuffer rasenganBuffer;
@@ -44,6 +44,6 @@ public:
 	~Vadid();
 	void TakeDamage(float amount, Object* source) override;
 	bool Update(list<Object*>& objects) override;
-    void Draw(sf::RenderWindow& window) override;
+	void Draw(sf::RenderWindow& window) override;
 	void SetState(STATE state);
 };
