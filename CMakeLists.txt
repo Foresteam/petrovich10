@@ -68,7 +68,9 @@ target_link_libraries(LR10
 if(WIN32)
 	target_link_libraries(LR10 shlwapi)
 	execute_process(
-		COMMAND cp -r ../assets assets
+		COMMAND mkdir assets
+		COMMAND cp -r ../assets/textures assets/textures
+		COMMAND cp -r ../assets/sounds assets/sounds
 		COMMAND cp ../bin/*.dll .
 	)
 else()

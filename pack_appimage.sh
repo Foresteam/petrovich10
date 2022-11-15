@@ -1,6 +1,8 @@
 rm -rf dist
 mkdir dist
-cp -r assets dist
+mkdir dist/assets
+cp -r assets/textures dist/assets
+cp -r assets/sounds dist/assets
 mkdir -p dist/usr/lib
 
 cp /usr/lib/libsfml-audio.so dist/usr/lib
