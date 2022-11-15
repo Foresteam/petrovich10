@@ -42,6 +42,9 @@ void Object::Scale(const Vector2& scale) {
 	this->_scale = Vector2(scale.x * this->_scale.x, scale.y * this->_scale.y);
 	_size = Vector2(_size.x * scale.x, _size.y * scale.y);
 }
+void Object::SetColor(const sf::Color& color) {
+	image.setColor(color);
+}
 
 Vector2 Object::GravitationVector() {
 	return Vector2(0, 1) * (mass * G * G_SCALE);
@@ -106,6 +109,9 @@ Vector2 Object::GetScale() {
 }
 Vector2 Object::GetSize() {
 	return _size;
+}
+sf::Color Object::GetColor() {
+	return image.getColor();
 }
 
 bool Object::Update(list<Object*>& objects) {

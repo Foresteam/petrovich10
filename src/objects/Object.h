@@ -28,6 +28,7 @@ public:
 	int Move(const Vector2& add);
 	void SetImage(string filename);
 	void Scale(const Vector2& scale);
+	void SetColor(const sf::Color& color);
 
 	Vector2 GravitationVector();
 	void Gravitate();
@@ -40,6 +41,7 @@ public:
 	Vector2 GetPos();
 	Vector2 GetScale();
 	Vector2 GetSize();
+	sf::Color GetColor();
 
 	/// @returns true if the object is to be deleted
 	virtual bool Update(list<Object*>& objects);

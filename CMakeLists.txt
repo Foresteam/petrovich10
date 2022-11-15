@@ -19,7 +19,8 @@ set(HEADERS
     src/objects/Sun.h
     src/objects/Wall.h
     src/objects/Nikita.h
-    src/objects/Vadid.h
+    src/objects/Vadid/Vadid.h
+    src/objects/Vadid/Afterimage.h
     src/objects/HealthBar.h
     src/gui/GUIElement.h
     src/gui/Button.h
@@ -39,7 +40,8 @@ set(SOURCES
     src/objects/Sun.cpp
     src/objects/Wall.cpp
     src/objects/Nikita.cpp
-    src/objects/Vadid.cpp
+    src/objects/Vadid/Vadid.cpp
+		src/objects/Vadid/Afterimage.cpp
     src/objects/HealthBar.cpp
     src/gui/GUIElement.cpp
     src/gui/Button.cpp

@@ -1,7 +1,7 @@
 #include "Nikita.h"
 #include "Player.h"
 #include "Wall.h"
-#include "Vadid.h"
+#include "Vadid/Vadid.h"
 #include "../global.h"
 
 const float attackRange = 300;
