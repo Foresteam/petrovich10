@@ -52,10 +52,11 @@ void FitInScreen(Object* object) {
 
 double renderWait = 0;
 // this clock is the fix for tremendous GPU utilizing. Alongside with FPS limiting, ofc
-chrono::_V2::system_clock::time_point lastUpdate = chrono::high_resolution_clock::now();
+auto lastUpdate = chrono::steady_clock::now();
 void DeltaTime() {
-	deltaTime = (chrono::high_resolution_clock::now() - lastUpdate).count() / 1.e+9;
-	lastUpdate = chrono::high_resolution_clock::now();
+	auto now = chrono::steady_clock::now();
+	deltaTime = chrono::duration_cast<chrono::duration<double>>(now - lastUpdate).count();
+	lastUpdate = now;
 }
 bool RenderWait() {
 	if (renderWait > 1.f / FPS) {
@@ -231,6 +232,7 @@ int main() {
 
 		me = new Player(true);
 		objects.push_back(me);
+		// objects.push_back(new Player(false));
 
 		GameCycle(window, exit);
 

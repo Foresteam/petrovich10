@@ -3,7 +3,7 @@
 #include "../global.h"
 
 Player::Player(bool isMe) : Healthy(100, ASSETS + "textures/player.png", RECT_SIZE) {
-	this->isMe = isMe;
+	this->_isMe = isMe;
 
 	direction = -1;
 	mass = 1;
@@ -17,11 +17,17 @@ Player::~Player() {
 	delete attack;
 }
 
+bool Player::IsMe() {
+	return _isMe;
+}
+
 void Player::SetState(STATE state) {
 	image.setTextureRect(sf::IntRect(sf::Vector2i(RECT_SIZE.x * state, 0), v2i(RECT_SIZE)));
 }
 
 void Player::Control(sf::RenderWindow& window, list<Object*>& objects) {
+	if (!_isMe)
+		return;
 	int plyMove = (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) - sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A));
 	direction = plyMove ? plyMove : direction;
 	

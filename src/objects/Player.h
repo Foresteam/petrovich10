@@ -8,28 +8,30 @@
 
 class Player : public Healthy {
 private:
-    enum STATE { IDLE = 0, ATTACK };
+	enum STATE { IDLE = 0, ATTACK };
 
-    static Vector2 RECT_SIZE;
-    const float K_SPEED = 1e+2 * 6;
-    const float JUMP_POWER = .15f;
+	static Vector2 RECT_SIZE;
+	const float K_SPEED = 1e+2 * 6;
+	const float JUMP_POWER = G * G_SCALE / 4;
 
-    int direction;
-    MeleeAttack* attack;
-    void SetState(STATE state);
-public:
+	int direction;
+	MeleeAttack* attack;
+	void SetState(STATE state);
+
 	/// Is local player
-	bool isMe;
+	bool _isMe;
+public:
+	bool IsMe();
 
-    /// @param isMe Is local player
-    Player(bool isMe = false);
-    ~Player();
+	/// @param isMe Is local player
+	Player(bool isMe = false);
+	~Player();
 
 	void Control(sf::RenderWindow& window, list<Object*>& objects);
 
 	float JumpPower();
-    float KSpeed();
+	float KSpeed();
 
-    void TakeDamage(float amount, Object* source) override;
+	void TakeDamage(float amount, Object* source) override;
 	bool Update(list<Object*>& objects) override;
 };

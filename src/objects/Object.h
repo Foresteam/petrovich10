@@ -9,9 +9,9 @@ using namespace std;
 
 class Object {
 private:
-	Vector2 scale;
-	Vector2 pos;
-	Vector2 size;
+	Vector2 _scale;
+	Vector2 _pos;
+	Vector2 _size;
 public:
 	bool onGround;
 	HitboxRect hitbox;
@@ -26,9 +26,10 @@ public:
 	virtual ~Object();
 	int MoveTo(const Vector2& npos);
 	int Move(const Vector2& add);
-	void setImage(string filename);
+	void SetImage(string filename);
 	void Scale(const Vector2& scale);
 
+	Vector2 GravitationVector();
 	void Gravitate();
 	void Collide(Object& other);
 

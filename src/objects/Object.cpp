@@ -5,15 +5,15 @@ Object::Object(string filename, Vector2 textureRectSize) {
 	image.setTexture(texture);
 
 	if (textureRectSize.Length() > 0)
-		size = textureRectSize;
+		_size = textureRectSize;
 	else
-		size = Vector2(texture.getSize().x, texture.getSize().y);
+		_size = Vector2(texture.getSize().x, texture.getSize().y);
 	image.setOrigin(GetW() / 2, GetH() / 2);
-	pos = Vector2(image.getPosition().x, image.getPosition().y);
+	_pos = Vector2(image.getPosition().x, image.getPosition().y);
 
 	velocity = Vector2(.0, .0);
 
-	scale = Vector2(1, 1);
+	_scale = Vector2(1, 1);
 
 	background = false;
 	kinematic = false;
@@ -21,35 +21,40 @@ Object::Object(string filename, Vector2 textureRectSize) {
 	enabled = true;
 
 	onGround = false;
-	hitbox = HitboxRect(&pos, &size);
+	hitbox = HitboxRect(&_pos, &_size);
+	_verticalPosPredicted = Vector();
 }
 Object::~Object() {}
 int Object::MoveTo(const Vector2& npos) {
     int moved = (GetPos().x != npos.x) + ((fabs(GetPos().y - npos.y) > 0.0001) << 1);
 	image.setPosition(npos.x, npos.y);
-	pos = npos;
+	_pos = npos;
     return moved;
 }
 int Object::Move(const Vector2& add) {
-	return MoveTo(pos + add);
+	return MoveTo(_pos + add);
 }
-void Object::setImage(string filename) {
+void Object::SetImage(string filename) {
 	texture.loadFromFile(filename);
 	image.setTexture(texture);
 }
 void Object::Scale(const Vector2& scale) {
 	image.setScale(scale.x, scale.y);
-	this->scale = Vector2(scale.x * this->scale.x, scale.y * this->scale.y);
-	size = Vector2(size.x * scale.x, size.y * scale.y);
+	this->_scale = Vector2(scale.x * this->_scale.x, scale.y * this->_scale.y);
+	_size = Vector2(_size.x * scale.x, _size.y * scale.y);
 }
 
+Vector2 Object::GravitationVector() {
+	return Vector2(0, 1) * (mass * G * G_SCALE);
+}
 void Object::Gravitate() {
 	if (kinematic)
 		return;
-	// gravitation vector. Needs some further work to work (lol)
-	velocity += Vector2(0, 1) * (mass * G * deltaTime * G_SCALE);
-	// printf("%s\n", velocity.ToString().c_str());
-	Move(Vector2(0, velocity.y));
+	auto ex = velocity;
+	velocity += GravitationVector() * deltaTime;
+	if (ex.y * velocity.y < 0)
+		printf("%s\n", _pos.ToString().c_str());
+	Move(Vector2(0, velocity.y * deltaTime));
 }
 void Object::Collide(Object& other) {
 	Object* pair[] = { this, &other };
@@ -87,27 +92,23 @@ void Object::Collide(Object& other) {
 }
 
 float Object::GetW() {
-	return size.x;
+	return _size.x;
 }
 float Object::GetH() {
-	return size.y;
+	return _size.y;
 }
 Vector2 Object::GetPos() {
-	return pos;
+	return _pos;
 }
 Vector2 Object::GetScale() {
-	return scale;
+	return _scale;
 }
 Vector2 Object::GetSize() {
-	return size;
+	return _size;
 }
 
 bool Object::Update(list<Object*>& objects) {
 	Move(Vector2(velocity.x * deltaTime, 0));
-	if (onGround) {
-		// i've no idea how to make it dependent on deltaTime
-		velocity.x *= 0.95;
-	}
 	return false;
 }
 void Object::Draw(sf::RenderWindow& window) {

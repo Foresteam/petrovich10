@@ -12,7 +12,7 @@ extern std::string EXE_PATH;
 	#define ASSETS EXE_PATH + "/assets/"
 #endif
 
-const float G = 9.8, G_SCALE = 1.e-1;
+const float G = 9.8, G_SCALE = 500;
 const int FPS = 60;
 
 const int WINDOW_WIDTH = 1280, WINDOW_HEIGHT = 720;
