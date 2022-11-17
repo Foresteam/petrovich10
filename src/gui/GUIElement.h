@@ -1,7 +1,7 @@
 #pragma once
-#include "../objects/Object.h"
+#include "../entities/Entity.h"
 
-class GUIElement : public Object {
+class GUIElement : public Entity {
 public:
 	bool clickable;
 	GUIElement(Vector2 pos, string filename, Vector2 textureRectSize = Vector2());

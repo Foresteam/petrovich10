@@ -1,5 +1,5 @@
 #include "MeleeAttack.h"
-#include "../objects/Healthy.h"
+#include "../entities/Healthy.h"
 
 MeleeAttack::MeleeAttack(float range, float verticalRangePlus, float attackPower, float attackAnimTime, float attackCooldown, float attackDelay) : Attack(attackPower, attackAnimTime, attackCooldown, attackDelay) {
 	this->_range = range;
@@ -9,7 +9,7 @@ MeleeAttack::MeleeAttack(float range, float verticalRangePlus, float attackPower
 void MeleeAttack::SetKnockback(float knockback) {
 	_knockback = knockback;
 }
-sf::FloatRect MeleeAttack::GetZone(Object* attacker, int direction) {
+sf::FloatRect MeleeAttack::GetZone(Entity* attacker, int direction) {
 	float x = attacker->GetPos().x, szx = _range;
 	// 'Cause direction=0 means "both", not "none"
 	if (direction)
@@ -18,11 +18,11 @@ sf::FloatRect MeleeAttack::GetZone(Object* attacker, int direction) {
 		szx *= 2, x -= szx / 2;
 	return sf::FloatRect(sf::Vector2f(x, attacker->GetPos().y - attacker->GetH() / 2 - _verticalRangePlus / 2), sf::Vector2f(szx, attacker->GetH() + _verticalRangePlus * 2));
 }
-void MeleeAttack::DoAttack(Object* attacker, int direction, list<Object*>& objects) {
+void MeleeAttack::DoAttack(Entity* attacker, int direction, list<Entity*>& objects) {
 	Attack::DoAttack(attacker, direction, objects);
 	sf::FloatRect zone = GetZone(attacker, direction);
 
-	for (Object* victim : objects)
+	for (Entity* victim : objects)
 		if (victim != attacker && instanceof<Healthy>(victim) && sf::FloatRect(v2f(victim->GetPos() - (victim->GetSize() / 2)), v2f(victim->GetSize())).intersects(zone)) {
 			((Healthy*)victim)->TakeDamage(attackPower, attacker);
 			if (_knockback) {

@@ -7,8 +7,8 @@ protected:
 public:
 	MeleeAttack(float range, float verticalRangePlus, float attackPower, float attackAnimTime, float attackCooldown, float attackDelay = 0);
 
-	void DoAttack(Object* attacker, int direction, list<Object*>& objects) override;
+	void DoAttack(Entity* attacker, int direction, list<Entity*>& objects) override;
 
 	void SetKnockback(float knockback);
-	sf::FloatRect GetZone(Object* attacker, int direction = 0);
+	sf::FloatRect GetZone(Entity* attacker, int direction = 0);
 };

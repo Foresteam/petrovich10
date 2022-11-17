@@ -3,11 +3,11 @@
 Dragger::Dragger() {
     nowDragging = nullptr;
 }
-void Dragger::TryCapture(list<Object*>& objects, sf::Event& event) {
+void Dragger::TryCapture(list<Entity*>& objects, sf::Event& event) {
     if (nowDragging)
         return;
     for (auto it = objects.rbegin(); it != objects.rend(); it++) {
-        Object* o = *it;
+        Entity* o = *it;
         if (
             !o->background &&
             event.mouseButton.x <= o->GetPos().x + o->GetW() / 2 &&

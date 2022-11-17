@@ -20,7 +20,7 @@ Vadid::Vadid(float kDamage) : Healthy(150, ASSETS + "textures/boss.png", RECT_SI
 
 	_wave = nullptr;
 	_title = new Overlay(Vector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), ASSETS + "textures/boss_title.png");
-	_afterimages = list<Object*>();
+	_afterimages = list<Entity*>();
 
 	_rasenganBuffer.loadFromFile(ASSETS + "sounds/rasengan.ogg");
 	_rasenganSound.setBuffer(_rasenganBuffer);
@@ -45,7 +45,7 @@ void Vadid::SetState(STATE state) {
 	_state = state;
 	image.setTextureRect(sf::IntRect(sf::Vector2i(RECT_SIZE.x * state, 0), v2i(RECT_SIZE)));
 }
-void Vadid::TakeDamage(float amount, Object* source) {
+void Vadid::TakeDamage(float amount, Entity* source) {
 	Healthy::TakeDamage(amount, source);
 	if (instanceof<Player>(source))
 		if (!Alive())
@@ -54,9 +54,9 @@ void Vadid::TakeDamage(float amount, Object* source) {
 			aSwordSliceSound.Play();
 }
 
-bool Vadid::Update(list<Object*>& objects) {
+bool Vadid::Update(list<Entity*>& objects) {
 	Player* ply = nullptr;
-	for (Object* o : objects)
+	for (Entity* o : objects)
 		if (instanceof<Player>(o)) {
 			ply = (Player*)o;
 			break;

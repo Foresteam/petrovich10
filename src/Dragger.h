@@ -1,13 +1,13 @@
 #pragma once
-#include "objects/Object.h"
+#include "entities/Entity.h"
 #include <list>
 
 class Dragger {
 private:
-    Object* nowDragging;
+    Entity* nowDragging;
 public:
     Dragger();
-    void TryCapture(list<Object*>& objects, sf::Event& event);
+    void TryCapture(list<Entity*>& objects, sf::Event& event);
     void DoDrag(sf::Window& window);
     void Release();
 };

@@ -6,7 +6,7 @@ HealthBar::~HealthBar() {
 HealthBar::HealthBar(Healthy* parent, float scale) : Overlay(Vector2(), ASSETS + "textures/healthbar.png") {
 	this->parent = parent;
 
-    _background = new Object(ASSETS + "textures/healthbar_background.png");
+    _background = new Entity(ASSETS + "textures/healthbar_background.png");
     _background->mass = 0;
     _background->background = true;
     _background->transparent = true;
@@ -16,7 +16,7 @@ HealthBar::HealthBar(Healthy* parent, float scale) : Overlay(Vector2(), ASSETS +
     Scale(scale);
 }
 
-bool HealthBar::Update(list<Object*>& objects) {
+bool HealthBar::Update(list<Entity*>& objects) {
 	MoveTo(parent->GetPos() + Vector2(0, -parent->GetH() / 2 - 20 - GetH() / 2));
 	_background->MoveTo(GetPos());
 	image.setTextureRect(sf::IntRect(
@@ -26,7 +26,7 @@ bool HealthBar::Update(list<Object*>& objects) {
     return false;
 }
 void HealthBar::Draw(sf::RenderWindow& window) {
-    Object::Draw(window);
+    Entity::Draw(window);
     _background->Draw(window);
 }
 

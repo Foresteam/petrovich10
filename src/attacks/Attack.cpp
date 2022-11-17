@@ -30,7 +30,7 @@ bool Attack::Ready() {
 	return true;
 }
 
-void Attack::DoAttack(Object* attacker, int direction, list<Object*>& objects) {
+void Attack::DoAttack(Entity* attacker, int direction, list<Entity*>& objects) {
 	lastSwing = clock();
 }
 

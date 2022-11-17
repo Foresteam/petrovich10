@@ -28,7 +28,7 @@ void Player::SetState(STATE state) {
 	image.setTextureRect(sf::IntRect(sf::Vector2i(RECT_SIZE.x * state, 0), v2i(RECT_SIZE)));
 }
 
-void Player::Control(sf::RenderWindow& window, list<Object*>& objects) {
+void Player::Control(sf::RenderWindow& window, list<Entity*>& objects) {
 	if (!_isMe || GetMovementLocked())
 		return;
 	int plyMove = (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) - sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A));
@@ -59,12 +59,12 @@ float Player::JumpPower() {
 	return JUMP_POWER * GetScale().Length() * mass;
 }
 
-bool Player::Update(list<Object*>& objects) {
+bool Player::Update(list<Entity*>& objects) {
 	Healthy::Update(objects);
 	return !Alive();
 }
 
-void Player::TakeDamage(float amount, Object* source) {
+void Player::TakeDamage(float amount, Entity* source) {
 	Healthy::TakeDamage(amount, source);
 	if (!Alive())
 		aSwordExecuteSound.Play();

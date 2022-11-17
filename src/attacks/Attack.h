@@ -1,5 +1,5 @@
 #pragma once
-#include "../objects/Object.h"
+#include "../entities/Entity.h"
 #include <list>
 
 class Attack {
@@ -9,7 +9,7 @@ protected:
 public:
 	Attack(float attackPower, float attackAnimTime, float attackCooldown, float attackDelay = 0);
 
-	virtual void DoAttack(Object* attacker, int direction, list<Object*>& objects);
+	virtual void DoAttack(Entity* attacker, int direction, list<Entity*>& objects);
 	float GetPower();
 	void Prepare();
 	bool Prepared();

@@ -34,12 +34,12 @@ private:
 	Choise _lastChoice;
 	bool _attacked;
 
-	Object* _wave;
-	Object* _title;
+	Entity* _wave;
+	Entity* _title;
 
 	const int afterimagesMaxSkipFrames = 2;
 	const int afterimagesMax = 5;
-	list<Object*> _afterimages;
+	list<Entity*> _afterimages;
 	int _afterimageSkippedFrames;
 
 	sf::SoundBuffer _rasenganBuffer, _rasenganShotBuffer;
@@ -48,8 +48,8 @@ public:
 	static Vector2 RECT_SIZE, SCALE;
 	Vadid(float kDamage);
 	~Vadid();
-	void TakeDamage(float amount, Object* source) override;
-	bool Update(list<Object*>& objects) override;
+	void TakeDamage(float amount, Entity* source) override;
+	bool Update(list<Entity*>& objects) override;
 	void Draw(sf::RenderWindow& window) override;
 	void SetState(STATE state);
 	int GetPhase();

@@ -27,11 +27,11 @@ public:
 	Player(bool isMe = false);
 	~Player();
 
-	void Control(sf::RenderWindow& window, list<Object*>& objects);
+	void Control(sf::RenderWindow& window, list<Entity*>& objects);
 
 	float JumpPower();
 	float KSpeed();
 
-	void TakeDamage(float amount, Object* source) override;
-	bool Update(list<Object*>& objects) override;
+	void TakeDamage(float amount, Entity* source) override;
+	bool Update(list<Entity*>& objects) override;
 };

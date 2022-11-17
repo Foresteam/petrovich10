@@ -19,7 +19,7 @@ Nikita::~Nikita() {
 	delete attack;
 }
 
-void Nikita::TakeDamage(float amount, Object* source) {
+void Nikita::TakeDamage(float amount, Entity* source) {
 	Healthy::TakeDamage(amount, source);
 	if (!Alive())
 		aSwordExecuteSound.Play();
@@ -30,9 +30,9 @@ void Nikita::SetState(STATE state) {
 	image.setTextureRect(sf::IntRect(sf::Vector2i(RECT_SIZE.x * state, 0), v2i(RECT_SIZE)));
 }
 
-bool Nikita::Update(list<Object*>& objects) {
+bool Nikita::Update(list<Entity*>& objects) {
 	Player* ply = nullptr;
-	for (Object* o : objects)
+	for (Entity* o : objects)
 		if (instanceof <Player>(o)) {
 			ply = (Player*)o;
 			break;

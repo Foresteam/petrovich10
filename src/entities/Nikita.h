@@ -1,5 +1,5 @@
 #pragma once
-#include "Object.h"
+#include "Entity.h"
 #include "Healthy.h"
 #include "../attacks/MeleeAttack.h"
 
@@ -13,7 +13,7 @@ private:
 public:
     Nikita();
     ~Nikita();
-    void TakeDamage(float amount, Object* source) override;
-	bool Update(list<Object*>& objects) override;
+    void TakeDamage(float amount, Entity* source) override;
+	bool Update(list<Entity*>& objects) override;
     void SetState(STATE state);
 };

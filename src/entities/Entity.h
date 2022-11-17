@@ -7,7 +7,7 @@
 #include <foresteamnd/Vector2>
 using namespace std;
 
-class Object {
+class Entity {
 private:
 	Vector2 _scale;
 	Vector2 _pos;
@@ -24,8 +24,8 @@ public:
 	Vector2 velocity;
 	bool kinematic, background, transparent, enabled, collideWorld;
 
-	Object(string filename, Vector2 textureRectSize = Vector2());
-	virtual ~Object() = default;
+	Entity(string filename, Vector2 textureRectSize = Vector2());
+	virtual ~Entity() = default;
 	int MoveTo(const Vector2& npos);
 	int Move(const Vector2& add);
 	void SetImage(string filename);
@@ -39,7 +39,7 @@ public:
 
 	Vector2 GravitationVector();
 	void Gravitate();
-	void Collide(Object& other);
+	void Collide(Entity& other);
 
 	void Rotate(int direction, bool reversed);
 
@@ -51,7 +51,7 @@ public:
 	sf::Color GetColor();
 
 	/// @returns true if the object is to be deleted
-	virtual bool Update(list<Object*>& objects);
+	virtual bool Update(list<Entity*>& objects);
 	virtual void Draw(sf::RenderWindow& window);
-	virtual bool CanCollide(Object* other, Vector2 direction);
+	virtual bool CanCollide(Entity* other, Vector2 direction);
 };

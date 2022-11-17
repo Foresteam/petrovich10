@@ -1,6 +1,6 @@
 #include "GUIElement.h"
 
-GUIElement::GUIElement(Vector2 pos, string filename, Vector2 textureRectSize) : Object(filename, textureRectSize) {
+GUIElement::GUIElement(Vector2 pos, string filename, Vector2 textureRectSize) : Entity(filename, textureRectSize) {
     MoveTo(pos);
     clickable = false;
 }

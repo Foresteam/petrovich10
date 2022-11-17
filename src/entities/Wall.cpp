@@ -13,7 +13,7 @@ Wall::Wall() : Healthy(100, ASSETS + "textures/wall.png") {
     hitSound.setBuffer(hitBuffer);
 }
 
-void Wall::TakeDamage(float amount, Object* source) {
+void Wall::TakeDamage(float amount, Entity* source) {
 	if (instanceof<Rasengan>(source))
 		amount /= 4;
 	Healthy::TakeDamage(amount, source);

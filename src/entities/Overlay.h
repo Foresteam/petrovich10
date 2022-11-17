@@ -1,7 +1,7 @@
 #pragma once
-#include "Object.h"
+#include "Entity.h"
 
-class Overlay : public Object {
+class Overlay : public Entity {
 public:
     Overlay(Vector2 pos, std::string filename, Vector2 rectSize = Vector2());
 };

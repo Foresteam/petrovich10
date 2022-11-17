@@ -1,7 +1,7 @@
 #include "Healthy.h"
 #include "HealthBar.h"
 
-Healthy::Healthy(float maxHP, string file, Vector2 imgsz) : Object(file, imgsz) {
+Healthy::Healthy(float maxHP, string file, Vector2 imgsz) : Entity(file, imgsz) {
 	this->maxHP = maxHP;
 	hp = maxHP;
 	healthBar = nullptr;
@@ -25,19 +25,19 @@ bool Healthy::Alive() {
 	return hp > 0;
 }
 void Healthy::Draw(sf::RenderWindow& window) {
-	Object::Draw(window);
+	Entity::Draw(window);
 	if (healthBar)
 		healthBar->Draw(window);
 }
 void Healthy::InitHealthBar() {
 	healthBar = new HealthBar(this, GetW() / 100 / 2);
 }
-bool Healthy::Update(list<Object*>& objects) {
+bool Healthy::Update(list<Entity*>& objects) {
 	if (healthBar)
 		healthBar->Update(objects);
-	Object::Update(objects);
+	Entity::Update(objects);
 	return !Alive();
 }
-void Healthy::TakeDamage(float amount, Object* source) {
+void Healthy::TakeDamage(float amount, Entity* source) {
 	SetHP(HP() - amount);
 }

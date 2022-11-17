@@ -2,7 +2,7 @@
 #include "../Player.h"
 #include "../Wall.h"
 bool pizda = false;
-Rasengan::Rasengan(Vector2 pos, Vector2 velocity, float damage) : Object(ASSETS + "textures/rasengan.png", Vector2(384)) {
+Rasengan::Rasengan(Vector2 pos, Vector2 velocity, float damage) : Entity(ASSETS + "textures/rasengan.png", Vector2(384)) {
 	kinematic = true;
 	transparent = false;
 	this->velocity = velocity;
@@ -20,10 +20,10 @@ Rasengan::~Rasengan() {
 	if (_lifeSound)
 		_lifeSound->EndLoop();
 	delete _attack;
-	Object::~Object();
+	Entity::~Entity();
 }
 
-bool Rasengan::CanCollide(Object* other, Vector2 direction) {
+bool Rasengan::CanCollide(Entity* other, Vector2 direction) {
 	if (!other) {
 		_destroy = true;
 		return false;
@@ -32,7 +32,7 @@ bool Rasengan::CanCollide(Object* other, Vector2 direction) {
 		return false;
 	return true;
 }
-bool Rasengan::Update(list<Object*>& objects) {
+bool Rasengan::Update(list<Entity*>& objects) {
 	for (auto obj : objects) {
 		if (!instanceof<Player>(obj))
 			continue;
@@ -51,7 +51,7 @@ bool Rasengan::Update(list<Object*>& objects) {
 		_lifeSound->Play();
 		pizda = true;
 	}
-	return Object::Update(objects) || _destroy;
+	return Entity::Update(objects) || _destroy;
 }
 
 void Rasengan::Draw(sf::RenderWindow& window) {
@@ -62,5 +62,5 @@ void Rasengan::Draw(sf::RenderWindow& window) {
 		SetScale(INITIAL_SCALE + (MAX_SCALE - INITIAL_SCALE) * progress);
 	}
 	image.rotate(RPS * 360 / 180 * M_PI);
-	Object::Draw(window);
+	Entity::Draw(window);
 }

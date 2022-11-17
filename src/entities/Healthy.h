@@ -1,10 +1,10 @@
 #pragma once
-#include "Object.h"
+#include "Entity.h"
 
-class Healthy : public Object {
+class Healthy : public Entity {
 protected:
     float hp, maxHP;
-    Object* healthBar;
+    Entity* healthBar;
 public:
 	Healthy(float maxHP, string file, Vector2 imgsz = Vector2());
     ~Healthy() override;
@@ -13,8 +13,8 @@ public:
     void SetHP(float val);
     bool Alive();
     /// @returns Is fatal
-	virtual void TakeDamage(float amount, Object* source);
+	virtual void TakeDamage(float amount, Entity* source);
     void Draw(sf::RenderWindow& window) override;
     void InitHealthBar();
-	bool Update(list<Object*>& objects) override;
+	bool Update(list<Entity*>& objects) override;
 };

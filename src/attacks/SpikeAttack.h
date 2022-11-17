@@ -7,5 +7,5 @@ private:
 public:
     SpikeAttack(float height, float attackPower, float attackAnimTime, float attackCooldown, float attackDelay = 0);
 
-	void DoAttack(Object* attacker, int direction, list<Object*>& objects) override;
+	void DoAttack(Entity* attacker, int direction, list<Entity*>& objects) override;
 };

@@ -13,46 +13,50 @@ set(HEADERS
 	src/sound/RandomSound.h
 	src/global.h
 	src/HitboxRect.h
-	src/objects/Object.h
-	src/objects/Overlay.h
-	src/objects/Healthy.h
-	src/objects/Player.h
-	src/objects/Sun.h
-	src/objects/Wall.h
-	src/objects/Nikita.h
-	src/objects/Vadid/Vadid.h
-	src/objects/Vadid/Afterimage.h
-	src/objects/Vadid/Rasengan.h
-	src/objects/HealthBar.h
+	src/entities/Entity.h
+	src/entities/Overlay.h
+	src/entities/Healthy.h
+	src/entities/Player.h
+	src/entities/Sun.h
+	src/entities/Wall.h
+	src/entities/Nikita.h
+	src/entities/Vadid/Vadid.h
+	src/entities/Vadid/Afterimage.h
+	src/entities/Vadid/Rasengan.h
+	src/entities/HealthBar.h
 	src/gui/GUIElement.h
 	src/gui/Button.h
 	src/attacks/Attack.h
 	src/attacks/MeleeAttack.h
 	src/attacks/SpikeAttack.h
 	src/Dragger.h
+	src/engine/Level.h
+	src/engine/Game.h
 )
 set(SOURCES
 	src/sound/Sound.cpp
 	src/sound/RandomSound.cpp
 	src/global.cpp
 	src/HitboxRect.cpp
-	src/objects/Object.cpp
-	src/objects/Overlay.cpp
-	src/objects/Healthy.cpp
-	src/objects/Player.cpp
-	src/objects/Sun.cpp
-	src/objects/Wall.cpp
-	src/objects/Nikita.cpp
-	src/objects/Vadid/Vadid.cpp
-	src/objects/Vadid/Afterimage.cpp
-	src/objects/Vadid/Rasengan.cpp
-	src/objects/HealthBar.cpp
+	src/entities/Entity.cpp
+	src/entities/Overlay.cpp
+	src/entities/Healthy.cpp
+	src/entities/Player.cpp
+	src/entities/Sun.cpp
+	src/entities/Wall.cpp
+	src/entities/Nikita.cpp
+	src/entities/Vadid/Vadid.cpp
+	src/entities/Vadid/Afterimage.cpp
+	src/entities/Vadid/Rasengan.cpp
+	src/entities/HealthBar.cpp
 	src/gui/GUIElement.cpp
 	src/gui/Button.cpp
 	src/attacks/Attack.cpp
 	src/attacks/MeleeAttack.cpp
 	src/attacks/SpikeAttack.cpp
 	src/Dragger.cpp
+	src/engine/Level.cpp
+	src/engine/Game.cpp
 )
 
 add_executable(LR10
