@@ -1,3 +1,4 @@
+#pragma once
 #include "../Object.h"
 
 class Afterimage : public Object {

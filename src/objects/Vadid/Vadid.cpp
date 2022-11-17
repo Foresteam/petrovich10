@@ -12,6 +12,7 @@ Vadid::Vadid(float kDamage) : Healthy(150, ASSETS + "textures/boss.png", RECT_SI
 	_touchAttack = new MeleeAttack(GetW() - 10, 0, 50, 0, 0.5f, 0);
 	_spikeAttack = new SpikeAttack(100, 100, .4f, 0, .5f);
 	_jumpAttack = new Attack(0, 0, 0, .5);
+	_rasenganAttack = new Attack(50, 0, 0, .5f);
 	_lastChoice = Choise();
 	_choiseTimer = clock();
 	_attacked = false;
@@ -21,8 +22,10 @@ Vadid::Vadid(float kDamage) : Healthy(150, ASSETS + "textures/boss.png", RECT_SI
 	_title = new Overlay(Vector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), ASSETS + "textures/boss_title.png");
 	_afterimages = list<Object*>();
 
-	_rasenganBuffer.loadFromFile(ASSETS + "sounds/rassengan.ogg");
+	_rasenganBuffer.loadFromFile(ASSETS + "sounds/rasengan.ogg");
 	_rasenganSound.setBuffer(_rasenganBuffer);
+	_rasenganShotBuffer.loadFromFile(ASSETS + "sounds/rasengan_shot.ogg");
+	_rasenganShotSound.setBuffer(_rasenganShotBuffer);
 
 	InitHealthBar();
 	SetState(IDLE);
@@ -30,6 +33,10 @@ Vadid::Vadid(float kDamage) : Healthy(150, ASSETS + "textures/boss.png", RECT_SI
 Vadid::~Vadid() {
 	delete _touchAttack;
 	delete _spikeAttack;
+	delete _jumpAttack;
+	delete _rasenganAttack;
+	for (auto afterimage : _afterimages)
+		delete afterimage;
 }
 
 void Vadid::SetState(STATE state) {
@@ -65,7 +72,7 @@ bool Vadid::Update(list<Object*>& objects) {
 	if (ply) {
 		_direction = (ply->GetPos().x > GetPos().x) * 2 - 1;
 		if (_touchAttack->Ready() && _touchAttack->GetZone(this, 0).intersects(ply->image.getGlobalBounds())) {
-				_touchAttack->DoAttack(this, 0, objects);
+			_touchAttack->DoAttack(this, 0, objects);
 		}
 		if (float(clock() - _choiseTimer) / CLOCKS_PER_SEC > choiseInterval) {
 			if (_title) {
@@ -73,15 +80,21 @@ bool Vadid::Update(list<Object*>& objects) {
 				_title = nullptr;
 			}
 			if (!_lastChoice.attack) {
-				Choise t[] = { Choise(_jumpAttack, JUMP_ATTACK, JUMP_PREPARE), Choise(_spikeAttack, ATTACK, ATTACK) };
+				Choise t[] = {
+					Choise(_jumpAttack, JUMP_ATTACK, JUMP_PREPARE),
+					Choise(_rasenganAttack),
+					Choise(_spikeAttack, ATTACK, ATTACK)
+				};
 				_lastChoice = t[(int)Utils::RandRange(0, GetPhase() + 1)];
 				_lastChoice.attack->Prepare();
 				SetState(_lastChoice.stateCharge);
-				if (instanceof<SpikeAttack>(_lastChoice.attack)) {
+				if (_lastChoice.attack == _spikeAttack) {
 					velocity.y -= CalcJumpPower(GetScale(), mass, 4);
 					_wave = new Overlay(Vector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT - 100 / 2) , ASSETS + "textures/flame.png");
 					_wave->enabled = false;
 				}
+				if (_lastChoice.attack == _rasenganAttack)
+					_rasenganShotSound.play();
 			}
 			if (_attacked) {
 				if (_lastChoice.attack->Ready()) {
@@ -101,7 +114,9 @@ bool Vadid::Update(list<Object*>& objects) {
 					_attacked = true;
 					if (_wave)
 						_wave->enabled = true;
-					if (instanceof<SpikeAttack>(_lastChoice.attack))
+					if (_lastChoice.attack == _rasenganAttack)
+						objects.push_back(new Rasengan(GetPos(), (ply->GetPos() - GetPos()).Normalized() * 1000, _rasenganAttack->GetPower()));
+					else if (_lastChoice.attack == _spikeAttack)
 						_rasenganSound.play();
 					else {
 						velocity += Vector2(
@@ -128,6 +143,7 @@ void Vadid::Draw(sf::RenderWindow& window) {
 		if (_state == JUMP_ATTACK)
 			_afterimages.push_back(new Afterimage(GetPos()));
 		if (_afterimages.size() > afterimagesMax || _state != JUMP_ATTACK && _afterimages.size() > 0) {
+			delete _afterimages.front();
 			_afterimages.pop_front();
 		}
 		auto i = 0;
@@ -143,8 +159,10 @@ void Vadid::Draw(sf::RenderWindow& window) {
 		_title->Draw(window);
 }
 int Vadid::GetPhase() {
-	if (HP() <= MaxHP() * .5)
+	if (HP() <= MaxHP() * .7)
 		return 1;
+	if (HP() <= MaxHP() * .4)
+		return 2;
 	return 0;
 }
 

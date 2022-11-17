@@ -2,6 +2,7 @@
 #include "../Healthy.h"
 #include "../../attacks/SpikeAttack.h"
 #include "../../attacks/MeleeAttack.h"
+#include "Rasengan.h"
 #include <list>
 
 class Vadid : public Healthy {
@@ -11,16 +12,13 @@ private:
 	struct Choise {
 		Attack* attack;
 		STATE stateAttack, stateCharge;
-		Choise() {
-			attack = nullptr;
-			stateAttack = IDLE;
-			stateCharge = IDLE;
-		}
 		Choise(Attack* attack, STATE stateAttack, STATE stateCharge) {
 			this->attack = attack;
 			this->stateAttack = stateAttack;
 			this->stateCharge = stateCharge;
 		}
+		Choise(Attack* attack) : Choise(attack, IDLE, IDLE) {}
+		Choise() : Choise(nullptr) {}
 	};
 
 	int _direction;
@@ -28,6 +26,7 @@ private:
 	MeleeAttack* _touchAttack;
 	SpikeAttack* _spikeAttack;
 	Attack* _jumpAttack;
+	Attack* _rasenganAttack;
 	STATE _state;
 
 	const float choiseInterval = 2;
@@ -43,8 +42,8 @@ private:
 	list<Object*> _afterimages;
 	int _afterimageSkippedFrames;
 
-	sf::SoundBuffer _rasenganBuffer;
-	sf::Sound _rasenganSound;
+	sf::SoundBuffer _rasenganBuffer, _rasenganShotBuffer;
+	sf::Sound _rasenganSound, _rasenganShotSound;
 public:
 	static Vector2 RECT_SIZE, SCALE;
 	Vadid(float kDamage);

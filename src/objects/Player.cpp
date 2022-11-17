@@ -1,5 +1,8 @@
 #include "Player.h"
 #include "HealthBar.h"
+#include "Nikita.h"
+#include "Vadid/Vadid.h"
+#include "Vadid/Rasengan.h"
 #include "../global.h"
 
 Player::Player(bool isMe) : Healthy(100, ASSETS + "textures/player.png", RECT_SIZE) {
@@ -26,7 +29,7 @@ void Player::SetState(STATE state) {
 }
 
 void Player::Control(sf::RenderWindow& window, list<Object*>& objects) {
-	if (!_isMe)
+	if (!_isMe || GetMovementLocked())
 		return;
 	int plyMove = (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) - sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A));
 	direction = plyMove ? plyMove : direction;
@@ -65,8 +68,10 @@ void Player::TakeDamage(float amount, Object* source) {
 	Healthy::TakeDamage(amount, source);
 	if (!Alive())
 		aSwordExecuteSound.Play();
-	else
+	else if (instanceof<Nikita>(source))
 		aSwordSliceSound.Play();
+	else if (instanceof<Vadid>(source))
+		aPunchSound.Play();
 }
 
 Vector2 Player::RECT_SIZE = Vector2(180, 199);

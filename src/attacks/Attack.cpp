@@ -33,3 +33,7 @@ bool Attack::Ready() {
 void Attack::DoAttack(Object* attacker, int direction, list<Object*>& objects) {
 	lastSwing = clock();
 }
+
+float Attack::GetPower() {
+	return attackPower;
+}

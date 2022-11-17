@@ -12,6 +12,8 @@ private:
 	Vector2 _scale;
 	Vector2 _pos;
 	Vector2 _size;
+protected:
+	clock_t _movementLock;
 public:
 	bool onGround;
 	HitboxRect hitbox;
@@ -20,15 +22,20 @@ public:
 	sf::Sprite image;
 	float mass = 0;
 	Vector2 velocity;
-	bool kinematic, background, transparent, enabled;
+	bool kinematic, background, transparent, enabled, collideWorld;
 
 	Object(string filename, Vector2 textureRectSize = Vector2());
-	virtual ~Object();
+	virtual ~Object() = default;
 	int MoveTo(const Vector2& npos);
 	int Move(const Vector2& add);
 	void SetImage(string filename);
 	void Scale(const Vector2& scale);
+	void Scale(const float& scale);
+	void SetScale(const float& scale);
+	void SetScale(const Vector2& scale);
 	void SetColor(const sf::Color& color);
+	void ApplyForce(const Vector2& force, const float& lockTime);
+	bool GetMovementLocked();
 
 	Vector2 GravitationVector();
 	void Gravitate();
@@ -46,4 +53,5 @@ public:
 	/// @returns true if the object is to be deleted
 	virtual bool Update(list<Object*>& objects);
 	virtual void Draw(sf::RenderWindow& window);
+	virtual bool CanCollide(Object* other, Vector2 direction);
 };

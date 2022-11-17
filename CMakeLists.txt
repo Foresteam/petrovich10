@@ -9,46 +9,50 @@ include_directories(LR10 PUBLIC include)
 link_directories(LR10 PUBLIC lib)
 
 set(HEADERS
-    src/RandomSound.h
-    src/global.h
-    src/HitboxRect.h
-    src/objects/Object.h
-    src/objects/Overlay.h
-    src/objects/Healthy.h
-    src/objects/Player.h
-    src/objects/Sun.h
-    src/objects/Wall.h
-    src/objects/Nikita.h
-    src/objects/Vadid/Vadid.h
-    src/objects/Vadid/Afterimage.h
-    src/objects/HealthBar.h
-    src/gui/GUIElement.h
-    src/gui/Button.h
-    src/attacks/Attack.h
-    src/attacks/MeleeAttack.h
-    src/attacks/SpikeAttack.h
-    src/Dragger.h
+	src/sound/Sound.h
+	src/sound/RandomSound.h
+	src/global.h
+	src/HitboxRect.h
+	src/objects/Object.h
+	src/objects/Overlay.h
+	src/objects/Healthy.h
+	src/objects/Player.h
+	src/objects/Sun.h
+	src/objects/Wall.h
+	src/objects/Nikita.h
+	src/objects/Vadid/Vadid.h
+	src/objects/Vadid/Afterimage.h
+	src/objects/Vadid/Rasengan.h
+	src/objects/HealthBar.h
+	src/gui/GUIElement.h
+	src/gui/Button.h
+	src/attacks/Attack.h
+	src/attacks/MeleeAttack.h
+	src/attacks/SpikeAttack.h
+	src/Dragger.h
 )
 set(SOURCES
-    src/RandomSound.cpp
-    src/global.cpp
-    src/HitboxRect.cpp
-    src/objects/Object.cpp
-    src/objects/Overlay.cpp
-    src/objects/Healthy.cpp
-    src/objects/Player.cpp
-    src/objects/Sun.cpp
-    src/objects/Wall.cpp
-    src/objects/Nikita.cpp
-    src/objects/Vadid/Vadid.cpp
-		src/objects/Vadid/Afterimage.cpp
-    src/objects/HealthBar.cpp
-    src/gui/GUIElement.cpp
-    src/gui/Button.cpp
-    src/attacks/Attack.cpp
-    src/attacks/MeleeAttack.cpp
-    src/attacks/SpikeAttack.cpp
-    src/Dragger.cpp
+	src/sound/Sound.cpp
+	src/sound/RandomSound.cpp
+	src/global.cpp
+	src/HitboxRect.cpp
+	src/objects/Object.cpp
+	src/objects/Overlay.cpp
+	src/objects/Healthy.cpp
+	src/objects/Player.cpp
+	src/objects/Sun.cpp
+	src/objects/Wall.cpp
+	src/objects/Nikita.cpp
+	src/objects/Vadid/Vadid.cpp
+	src/objects/Vadid/Afterimage.cpp
+	src/objects/Vadid/Rasengan.cpp
+	src/objects/HealthBar.cpp
+	src/gui/GUIElement.cpp
+	src/gui/Button.cpp
+	src/attacks/Attack.cpp
+	src/attacks/MeleeAttack.cpp
+	src/attacks/SpikeAttack.cpp
+	src/Dragger.cpp
 )
 
 add_executable(LR10

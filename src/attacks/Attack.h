@@ -10,6 +10,7 @@ public:
 	Attack(float attackPower, float attackAnimTime, float attackCooldown, float attackDelay = 0);
 
 	virtual void DoAttack(Object* attacker, int direction, list<Object*>& objects);
+	float GetPower();
 	void Prepare();
 	bool Prepared();
 	bool Ready();

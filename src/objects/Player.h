@@ -2,7 +2,7 @@
 #include "Healthy.h"
 #include "../attacks/MeleeAttack.h"
 #include "../global.h"
-#include "../RandomSound.h"
+#include "../sound/RandomSound.h"
 #include <time.h>
 #include <list>
 

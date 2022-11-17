@@ -9,6 +9,7 @@
 #include "src/objects/HealthBar.h"
 #include "src/objects/Nikita.h"
 // #include "src/objects/Vadid.h"
+#include "src/objects/Vadid/Rasengan.h"
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Rect.hpp>
@@ -31,21 +32,21 @@ vector<GUIElement*> mainMenu;
 Dragger dragger;
 
 void FitInScreen(Object* object) {
-	if (object->GetPos().x < 0 + object->GetW() / 2) {
+	if (object->GetPos().x < 0 + object->GetW() / 2 && object->CanCollide(nullptr, Vector2(1, 0))) {
 		object->MoveTo(Vector2(0 + object->GetW() / 2, object->GetPos().y));
 		object->velocity.x = 0;
 	}
-	if (object->GetPos().x > WINDOW_WIDTH - object->GetW() / 2) {
+	if (object->GetPos().x > WINDOW_WIDTH - object->GetW() / 2 && object->CanCollide(nullptr, Vector2(-1, 0))) {
 		object->MoveTo(Vector2(WINDOW_WIDTH - object->GetW() / 2, object->GetPos().y));
 		object->velocity.x = 0;
 	}
-	if (object->GetPos().y < 0 + object->GetH() / 2) {
+	if (object->GetPos().y < 0 + object->GetH() / 2 && object->CanCollide(nullptr, Vector2(0, 1))) {
 		object->MoveTo(Vector2(object->GetPos().x, 0 + object->GetH() / 2));
 		object->velocity.y = 0;
 	}
 	if (object->GetPos().y >= WINDOW_HEIGHT - object->GetH() / 2)
 		object->onGround = true;
-	if (object->GetPos().y > WINDOW_HEIGHT - object->GetH() / 2) {
+	if (object->GetPos().y > WINDOW_HEIGHT - object->GetH() / 2 && object->CanCollide(nullptr, Vector2(0, -1))) {
 		object->MoveTo(Vector2(object->GetPos().x, WINDOW_HEIGHT - object->GetH() / 2));
 		object->velocity.y = 0;
 	}
@@ -67,6 +68,21 @@ bool RenderWait() {
 	else {
 		renderWait += deltaTime;
 		return false;
+	}
+}
+
+void HandleGlobalSounds() {
+	list<Sound**> dead;
+	for (auto& sound : globalSounds) {
+		(*sound)->Update();
+		if ((*sound)->GetStatus() == Sound::STATUS::NOT_PLAYING)
+			dead.push_back(sound);
+	}
+	// purge
+	for (auto& sound : dead) {
+		globalSounds.remove(sound);
+		delete *sound;
+		*sound = nullptr;
 	}
 }
 
@@ -131,6 +147,7 @@ void GameCycle(sf::RenderWindow& window, bool &exit) {
 			window.display();
 		}
 
+		HandleGlobalSounds();
 		for (Object* o : toDelete) {
 			if (o == me) {
 				me = nullptr;
@@ -178,6 +195,8 @@ void MainMenu(sf::RenderWindow& window, bool& exit) {
 		for (GUIElement* ge : mainMenu)
 			ge->Draw(window);
 		window.display();
+
+		HandleGlobalSounds();
 	}
 }
 
@@ -223,6 +242,8 @@ int main() {
 		wall->MoveTo(Vector2(WINDOW_WIDTH - wall->GetW() / 2 - nikita->GetW(), 0));
 		objects.push_back(wall);
 
+		objects.push_back(new Rasengan(Vector2(100, sun->GetH() / 2), Vector2(50, 25), 50));
+
 		// Vadid* vadid = new Vadid(1);
 		// vadid->MoveTo(Vector2(WINDOW_WIDTH / 2, 0));
 		// objects.push_back(vadid);
@@ -240,7 +261,10 @@ int main() {
 		// cleanup
 		for (Object* object : objects)
 			delete object;
+		for (Sound** sound : globalSounds)
+			delete *sound;
 		objects.clear();
+		globalSounds.clear();
 
 		if (exit)
 			return 0;

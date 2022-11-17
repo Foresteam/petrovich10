@@ -6,3 +6,4 @@ lib
 bin
 petrovich10-linux.*
 petrovich10-win32*
+mingw_gcc

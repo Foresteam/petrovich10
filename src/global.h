@@ -1,8 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <foresteamnd/Vector2>
-#include "RandomSound.h"
+#include "sound/RandomSound.h"
 #include <string>
+#include <list>
 
 extern std::string EXE_PATH;
 
@@ -19,7 +20,8 @@ const int FPS = 60;
 const int WINDOW_WIDTH = 1280, WINDOW_HEIGHT = 720;
 
 extern double deltaTime;
-extern RandomSound aSwordSwingSound, aSwordSliceSound, aSwordExecuteSound;
+extern RandomSound aSwordSwingSound, aSwordSliceSound, aSwordExecuteSound, aPunchSound, anAirWaveSound;
+extern std::list<Sound**> globalSounds;
 extern sf::SoundBuffer wallBreakBuffer;
 extern sf::Sound wallBreakSound;
 
